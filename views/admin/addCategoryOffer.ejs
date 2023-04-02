@@ -1,0 +1,125 @@
+<style>
+  /* === BASE HEADING === */ 
+
+.twelve h1 {
+position: relative;
+padding: 0;
+margin: 0;
+font-family: "Raleway", sans-serif;
+font-weight: 300;
+font-size: 40px;
+color: #080808;
+-webkit-transition: all 0.4s ease 0s;
+-o-transition: all 0.4s ease 0s;
+transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+ background-color: #c50000;
+ content: '';
+ display: block;
+ height: 3px;
+ width: 75px;
+ margin-bottom: 5px;
+}
+.twelve h1:after {
+ background-color: #c50000;
+ content: '';
+ display: block;
+position:absolute; right:0; bottom:0;
+ height: 3px;
+ width: 75px;
+ margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+}
+/* body {
+background: #eee;
+} */
+.heading {
+position: relative;
+/* background: #f8f8f8; */
+width: 90%;
+max-width: 500px;
+padding: 2em;
+margin: 1.5em auto;
+/* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+background-color: #c50000;
+}
+</style>
+
+
+    
+    
+
+
+<%- include('../partials/admin-navbar')%>
+<%- include('../partials/sidebar')%>
+          <div class="content">
+            <div class="twelve heading">
+              <h1>Add category offer</h1>
+            </div>
+              <div class="row">
+                  <h2 class="text-center fw-bold mt-3"></h2>
+                  <div class="col-6 offset-3">
+
+<form method="post" action="/admin/addCategoryOffer/?_method=PATCH" id="myForm">
+
+
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select class="form-select" name="category" id="category" >
+      <% for(let c of category){%>
+        <option value="<%-c._id%>"><%-c.name%></option>
+        
+        <%}%>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="discount" class="form-label">Discount</label>
+    <input type="number" class="form-control" name="discount" id="discount" onkeyup="validateName()" / >
+    <span id="category-error"></span>
+  </div>
+
+  
+
+ 
+
+  <div class="mb-3">
+    <label for="validFrom" class="form-label">Valid From</label>
+    <input   type="date" class="form-control" name="validFrom" id="validFrom" rows="3"  required>
+    <span id="validFrom-error"></span>
+  </div>
+  <div class="mb-3">
+    <label for="validTo" class="form-label">Valid To</label>
+    <input   type="date" class="form-control" name="validTo" id="validTo" rows="3"  required>
+    <span id="validTo-error"></span>
+  </div>
+
+
+  <span id="submit-error"></span><br>
+
+
+  <button type="submit" class="btn btn-primary align-center">Submit</button>
+</form>
+</div>
+              </div>
+</div>

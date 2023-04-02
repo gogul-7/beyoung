@@ -1,0 +1,40 @@
+<body style="background-color: #eee">
+    
+    <%- include('../partials/navbar')%>
+
+<div class="container my-5">
+<div class="card">
+    <div class="p-5">
+<h3>Review Your Purchases</h3>
+<hr>
+<p>Looks like you have reviewed all your purchases.</p>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <%- include('../partials/footer')%>
+    <script>
+          window.onload = function () {
+            var addReview = sessionStorage.getItem("addReview");
+                  
+            if (addReview) {
+              sessionStorage.removeItem("addReview");
+              
+              alertify.success('Your Review Added Successfully')
+            }
+            
+          
+          }
+    </script>
+</body>

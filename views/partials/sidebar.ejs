@@ -1,0 +1,107 @@
+
+  <!-- The sidebar -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<link rel="icon" href="/images/be-young-logo.png"emo type="image/gif" sizes="16x16">
+  
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
+rel="stylesheet"
+/>
+
+ <!-- cdn for sweetalert-->
+
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- alertify -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+<!-- 
+    RTL version
+-->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
+
+
+
+
+<div class="sidebar">
+  <%if(active=="dashboard"){%>
+  <a class="active" href="/admin"><i class="fa-solid fa-gauge"></i>&nbsp  Home</a>
+  <%}else{%>
+  <a  href="/admin"><i class="fa-solid fa-gauge"></i>&nbsp  Home</a>
+  <%}%>
+
+  <%if(active=="users"){%>
+    <a class="active" href="/admin/users"><i class="fa-sharp fa-solid fa-users"></i>&nbsp Customers</a>
+    <%}else{%>
+
+  <a href="/admin/users"><i class="fa-sharp fa-solid fa-users"></i>&nbsp Customers</a>
+  <%}%>
+
+  <%if(active=="products"){%>
+    <a class="active" href="/admin/products"><i class="fa-solid fa-bag-shopping"></i>&nbsp Products</a>
+    <%}else{%>
+    <a href="/admin/products"><i class="fa-solid fa-bag-shopping"></i>&nbsp Products</a>
+    <%}%>
+    
+    <%if(active=="categories"){%>
+  
+      <a class="active" href="/admin/categories"><i class="fa-solid fa-layer-group"></i>&nbsp Categories</a>
+      <%}else{%>
+      
+      <a href="/admin/categories"><i class="fa-solid fa-layer-group"></i>&nbsp Categories</a>
+      <%}%>
+      <%if(active=="brands"){%>
+  
+        <a class="active" href="/admin/brands"><i class="fa-brands fa-bandcamp"></i>&nbsp Brands</a>
+        <%}else{%>
+        
+        <a href="/admin/brands"><i class="fa-brands fa-bandcamp"></i>&nbsp Brands</a>
+        <%}%>
+      <%if(active=="offers"){%>
+  
+        <a class="active" href="/admin/offers"><i class="fa-solid fa-feather"></i>&nbsp Offers</a>
+        <%}else{%>
+        
+        <a href="/admin/offers"><i class="fa-solid fa-feather"></i>&nbsp Offers</a>
+        <%}%>
+
+  <%if(active=="orders"){%>
+  <a class="active" href="/admin/orders"><i class="fa-brands fa-bitbucket"></i>&nbsp Orders</a>
+  <%}else{%>
+    <a  href="/admin/orders"><i class="fa-brands fa-bitbucket"></i>&nbsp Orders</a>
+    <%}%>
+    <%if(active=="banners"){%>
+      <a class="active" href="/admin/banners"><i class="fa-regular fa-images"></i></i>&nbsp Banners</a>
+      <%}else{%>
+        <a  href="/admin/banners"><i class="fa-regular fa-images"></i>&nbsp Banners</a>
+        <%}%>
+
+
+  
+
+
+        <%if(active=="coupons"){%>
+          <a class="active" href="/admin/coupons"><i class="fa-solid fa-ticket"></i>&nbsp Coupons</a>
+          <%}else{%>
+            <a  href="/admin/coupons"><i class="fa-solid fa-ticket"></i>&nbsp Coupons</a>
+            <%}%>
+  <!-- <a href="#about">&nbsp Transactions</a> -->
+  <a href="/adminlogout"><i class="fa-solid fa-right-from-bracket"></i>&nbsp Logout</a>
+</div>
+
+

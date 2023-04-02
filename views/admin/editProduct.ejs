@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+</head>
+
+<body>
+  <%- include('../partials/admin-navbar')%>
+<%- include('../partials/sidebar')%>
+            <div class="content">
+                <div class="row">
+                    <h2 class="text-center fw-bold mt-3">EDIT PRODUCT</h2>
+                    <div class="col-6 offset-3">
+
+<form method="post" action="/admin/products/editproduct/<%-product._id%>?_method=PUT" enctype="multipart/form-data" id="myForm">
+    <div class="mb-3">
+      <label for="productname" class="form-label">Name</label>
+      <input type="text" class="form-control" name="productname" id="productname"  value="<%-product.productname%>" onkeyup="validateName()">
+      <span id="name-error"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-select" name="category" id="category" value="<%-product.category%>">
+        <% for(let c of category){%>
+          <option value="<%-c._id%>"  <%= selectedCategoryName==c.name ? 'selected' : ''%>><%-c.name%></option>
+          
+          <%}%>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand</label>
+      <select class="form-select" name="brand" id="brand" value="<%-product.brand%>">
+        <% for(let c of brand){%>
+          <option value="<%-c.name%>"  <%= product.brand==c.name ? 'selected' : ''%>><%-c.name%></option>
+          
+          <%}%>
+      </select>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label for="discount" class="form-label">Discount</label>
+        <div class="input-group">
+          <span class="input-group-text">&#8377;</span>
+          <input type="number" id="discount" name="discount" class="form-control" value="<%-product.discount%>" onkeyup="validateDiscount()">
+          <span class="input-group-text">.00</span>
+        </div>
+      <span id="discount-error"></span>
+
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+          <label for="price" class="form-label">Price</label>
+          <div class="input-group">
+            <span class="input-group-text">&#8377;</span>
+            <input type="number" id="price" name="price" class="form-control" value="<%-product.price%>" />
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="col-md-6">
+      <label for="stock" class="form-label">Stock</label>
+      <input type="number" id="stock" name="stock" class="form-control" value="<%-product.stock%>"/>
+    </div><br>
+
+    <!-- <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input class="form-control" type="file" id="image" name="image"/>
+    </div> -->
+
+                            <% for(let image of product.images){%>
+<img src="<%-image.url%>" alt="" style="width:50px; height:50px;" id="imageview">
+
+                        <% } %>
+    <div class="mb-3">
+      <label for="multi-image" class="form-label" >Change Images</label>
+      <input class="form-control" type="file" id="multi-image" name="filebutton" multiple onchange="viewimage()"/>  
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" name="description" id="description" rows="3" onkeyup="validateDescription()"><%-product.description%></textarea>
+      <span id="description-error"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="specification" class="form-label">Specification</label>
+        <input type="text" class="form-control" name="specification" id="specification" value="<%-product.specification%>"/>
+      </div>
+      <div class="mb-3">
+        <label for="services" class="form-label">Services</label>
+        <input type="text" class="form-control" name="services" id="services" value="<%-product.services%>" />
+      </div>
+
+
+    <button type="submit" class="btn btn-primary align-center">Save Changes</button>
+  </form>
+</div>
+                </div>
+</div>
+<!-- <script>
+  function viewimage(){
+    event(document.getElementById('imageview').src=URL.createObjectURL(event.target.files[0]))
+  }
+</script> -->
+<script>
+  const form = document.getElementById("myForm");
+  const nameError = document.getElementById("name-error");
+  const discountError = document.getElementById("discount-error");
+  const descriptionError = document.getElementById("description-error");
+  const categoryError = document.getElementById("category-error");
+  const brandError = document.getElementById("brand-error");
+
+  form.addEventListener('submit', e => {
+      
+      if(validateName()&&validateDiscount()&&validateDescription()){
+        sessionStorage.setItem("editProduct", "true");
+
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+    function validateName() {
+    var name=document.getElementById('productname').value.trim();  
+
+    if (name.length==0) {
+        nameError.innerHTML='Name is Required';
+        nameError.style.color='red'
+        return false;
+    }
+
+    // if (!name.match(/^[A-Za-z]*$/)){
+    //     nameError.innerHTML='Write a Validname';
+    //     nameError.style.color='red'
+    //     return false;
+    // }
+    
+    nameError.innerHTML='Name is valid';
+    nameError.style.color='green'
+    return true;
+}
+function validateDiscount() {
+    var discount=document.getElementById('discount').value;  
+console.log(discount)
+    if (discount.length==0) {
+        discountError.innerHTML='Discount is Required';
+        discountError.style.color='red'
+        return false;
+    }
+    if (discount>99) {
+        discountError.innerHTML='Cannot have more than 99%';
+        discountError.style.color='red'
+        return false;
+    }
+    discountError.innerHTML='Discount is valid';
+    discountError.style.color='green'
+    return true;
+}
+
+
+function validateDescription() {
+    var description=document.getElementById('description').value.trim();  
+    if (description.length==0) {
+        descriptionError.innerHTML='Description is Required';
+        descriptionError.style.color='red'
+        return false;
+    }
+
+    // if (!description.match(/^[A-Za-z]*$/)){
+    //     descriptionError.innerHTML='Write a Valid description';
+    //     descriptionError.style.color='red'
+    //     return false;
+    // }
+    
+    descriptionError.innerHTML='Description is valid';
+    descriptionError.style.color='green'
+    return true;
+}
+
+
+</script>
+</body>
+
+</html>

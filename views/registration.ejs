@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+</head>
+<body>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- cdn for styling -->
+    <!-- <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
+    rel="stylesheet"
+    />  -->
+   
+ 
+  
+  </head>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold fst-italic" href="/">Be Young</a>
+        
+      </div>
+     
+    </nav>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  
+    <section class="vh-110 bg-image"
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+  <%- include('flashes/flash')%>
+
+
+              <form action="/register" method="post" id="myForm1" novalidate>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="firstname" class="form-control form-control-lg" name="firstname" onkeyup="validateName()"/>
+                  <label class="form-label" for="firstname">First Name</label><br>
+                  <span id="name-error"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="lastname" class="form-control form-control-lg" name="lastname"/>
+                  <label class="form-label" for="lastname">Last Name</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="email" id="email" class="form-control form-control-lg" name="email" onkeyup="validateEmail()" />
+                  <label class="form-label" for="email">Your Email</label><br>
+                  <span id="email-error"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="phoneno" class="form-control form-control-lg" name="phoneno" onkeyup="validatePhoneno()"/>
+                  <label class="form-label" for="phoneno">Phone No</label><br>
+                  <span id="phoneno-error"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="password" class="form-control form-control-lg" name="password" onkeyup="validatePassword()"/>
+                  <label class="form-label" for="password">Password</label><br>
+                  <span id="password-error"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="c_password" class="form-control form-control-lg" name="confirmpassword" onkeyup="validateCpassword()"/>
+                  <label class="form-label" for="c_password">Repeat your password</label><br>
+                  <span id="c_password-error"></span>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="referral" class="form-control form-control-lg" name="referral"/>
+                  <label class="form-label" for="referral">Referral Code(Optional)</label>
+                </div>
+
+                <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div>
+               
+               
+                <div class="d-flex justify-content-center">
+                  <button type="submit"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <span id="submit-error"></span>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const form = document.getElementById("myForm1");
+  const nameError = document.getElementById("name-error");
+  const emailError=document.getElementById("email-error");
+  const phonenoError=document.getElementById("phoneno-error")
+  const passwordError=document.getElementById("password-error") 
+  const c_passwordError=document.getElementById("c_password-error")
+
+  form.addEventListener('submit', e => {
+      
+      if(validateName()&&validateEmail()&&validatePhoneno()&&validatePassword()&&validateCpassword()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+    function validateName() {
+    var name=document.getElementById('firstname').value.trim();  
+
+    if (name.length==0) {
+        nameError.innerHTML='Name is Required';
+        nameError.style.color='red'
+        return false;
+    }
+
+    if (!name.match(/^[A-Za-z]*$/)){
+        nameError.innerHTML='Write a Validname';
+        nameError.style.color='red'
+        return false;
+    }
+    
+    nameError.innerHTML='Name is valid';
+    nameError.style.color='green'
+    return true;
+}
+function validateEmail(){
+    var email = document.getElementById('email').value.trim();
+    if (email.length==0) {
+        emailError.innerHTML='Email is Required';
+        emailError.style.color='red'
+        return false;
+    }
+
+    if (!email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        emailError.innerHTML='Email is Invalid';
+        emailError.style.color='red'
+        return false;
+    }
+    emailError.innerHTML='Email is valid';
+    emailError.style.color='green'
+    return true;
+}
+function validatePhoneno() {
+    var phoneno=document.getElementById('phoneno').value.trim();  
+
+    if (phoneno.length==0) {
+        phonenoError.innerHTML='Phone no is Required';
+        phonenoError.style.color='red'
+        return false;
+    }
+    else if (phoneno.length!=10) {
+        phonenoError.innerHTML='Write a valid phone no';
+        phonenoError.style.color='red'
+        return false;
+    }
+
+    if (!phoneno.match(/^[0-9]*$/)){
+        phonenoError.innerHTML='Write a valid phoneno';
+        phonenoError.style.color='red'
+        return false;
+    }
+    
+    phonenoError.innerHTML='Phone no is valid';
+    phonenoError.style.color='green'
+    return true;
+}
+function validatePassword() {
+    var password =document.getElementById('password').value.trim();
+    var Required=8;
+    var left=Required - password.length;
+    
+    if(left>0){
+        passwordError.innerHTML =left+ 'more character Required';
+        passwordError.style.color='red'
+        return false;
+    
+    }
+    passwordError.innerHTML='Password is valid';
+    passwordError.style.color='green'
+    return true;     
+    
+}
+function validateCpassword() {
+    var password =document.getElementById('password').value.trim();
+    var c_password =document.getElementById('c_password').value.trim();
+   
+    if(password!=c_password){
+        c_passwordError.innerHTML ='Password does not match';
+        c_passwordError.style.color='red'
+        return false;
+    
+    }
+    c_passwordError.innerHTML='Password match';
+    c_passwordError.style.color='green'
+    return true;     
+    
+}
+  
+ 
+</script>
+</body>
+
+</html>

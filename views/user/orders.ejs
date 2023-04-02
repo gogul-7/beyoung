@@ -1,0 +1,226 @@
+<head>
+  <title>My Orders</title>
+ </head> 
+<%- include('../partials/navbar')%>
+<body style="background-color: #eee;" >
+
+    <section style="background-color: #eee;">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col">
+            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between">
+             <div>
+              <!-- <span class="ms-5 text-dark fw-bold"> items</span> -->
+            </div>
+            <div>
+              <div class="input-group">
+                <div class="form-input" id="search-container">
+                  <input type="search" id="search-input" class="form-control" placeholder="Search"/>
+                  <!-- <label class="form-label" for="form1">Search</label> -->
+                </div>
+                <button type="button" id="search" class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            </nav>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-2">
+            <!-- <div class="card mb-4">
+              <div class="card-body ">
+                  <p class=" mx-2"><strong>Filters</strong></p>
+                  
+  
+              </div>
+            </div>  -->
+            <div class="card mb-4">
+              <div class="card-body">
+                  <p class=" mx-2"><strong>Categories</strong></p>
+                  <div class="form-check">
+                    <input class="form-check-input button-value" type="radio" id="all" name="filter" onclick="filterOrders('all')">
+                    <label class="form-check-label" for="all">
+                      All
+                    </label>
+                </div>
+               
+                <div class="form-check">
+                  <input class="form-check-input button-value" type="radio" id='' name="filter" onclick="filterOrders('pending')" >
+                  <label class="form-check-label" for='pending'>
+                    Pending
+                  </label>
+              </div>
+
+                  <div class="form-check">
+                      <input class="form-check-input button-value" type="radio" id='' name="filter" onclick="filterOrders('confirmed')" >
+                      <label class="form-check-label" for='confirmed'>
+                        Confirmed
+                      </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input button-value" type="radio" id='' name="filter" onclick="filterOrders('shipped')" >
+                    <label class="form-check-label" for='shipped'>
+                      Shipped
+                    </label>
+                </div>
+              
+              <div class="form-check">
+                <input class="form-check-input button-value" type="radio" id='' name="filter" onclick="filterOrders('outfordelivery')" >
+                <label class="form-check-label" for='shipped'>
+                  On the Way
+                </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input button-value" type="radio" id='' name="filter" onclick="filterOrders('delivered')" >
+              <label class="form-check-label" for='shipped'>
+                Delivered
+              </label>
+          </div>
+        </div>
+            
+            </div>        
+          </div>
+          
+          <div class="col-lg-10">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div
+                  class="d-flex justify-content-between align-items-center mb-0"
+                >
+                  <h3 class="fw-bold mb-0 text-black">My Orders</h3>
+                  <!-- <h6 class="mb-0 text-muted">
+                     <%-orders.length%> items
+                  </h6> -->
+                </div>
+                <hr class="my-4" />
+                  <% if(orders.length>0) {%>
+                    <% for(var i =orders.length-1 ; i>=0 ;i--) {%>
+                      <% for(let order of orders[i].products){%>
+
+                          <div class="p-2 row mb-4 d-flex justify-content-between align-items-center cards  <%-order.status%> hide">
+                        <a href="orders/orderDetails/<%-orders[i]._id%>/<%-order.item%>" style="text-decoration:none;">
+
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                              <img
+                                src="<%-order.product.images[0].url%>"
+                                class="img-fluid rounded-3" alt="Cotton T-shirt" style="width: 100px;">
+                  </a>
+              </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                              <h6 class="text-muted"><%-order.product.categoryname%></h6>
+                              <h6 class="text-danger brand-name "><%-order.product.brand%></h6>
+      
+                      <h6 class="text-black mb-0 product-name"><%-order.product.productname%></h6>
+                      <h6 class="mb-0">&#8377;<%-order.product.actualprice%> </h6>
+
+      
+                            </div>
+                            
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                             <span> <h6 class="mb-0">Qty : <%-order.quantity%></h6></span>
+                            </div>
+                          
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                              <h6 class="mb-0">&#8377;<%-(order.product.actualprice)*order.quantity%>/- </h6>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-3 offset-lg-1">
+                              <h6 class="mb-0">Order Placed on <%-orders[i].placedDate%></h6>
+                            </div> 
+                            
+                          </div>
+                          <%}%>
+                         
+                        
+      
+                          <%}%>
+                          
+                          <%}else{%>
+                            <div class="d-flex justify-content-center my-5 col-lg-12">    
+                              <div class="card text-center" style="width: 20rem;">
+                                  <img src="/images/cartlogin.webp" class="card-img-top" alt="...">
+                                  <div class="card-body">
+                                      <h5 class="card-title">Empty</h5>
+                                    <p class="card-text">You have no orders so far. Start Purchasing!
+                                    </p>
+                                    <a href="/" class="btn btn-primary">Back To Shop</a>
+                                  </div>
+                                </div>
+                              </div>
+                          <% } %>
+
+                            </div>
+                    </div>
+                   
+                       
+               
+               
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      function filterOrders(value) {
+      //select all cards
+      let elements = document.querySelectorAll(".cards")
+        elements.forEach((element) => {
+          if (value == 'all') {
+            element.classList.remove('hide');
+          }
+          else {
+            if (element.classList.contains(value)) {
+              element.classList.remove('hide');
+            }
+            else {
+              element.classList.add('hide');
+            }
+          }
+        })
+      }
+      window.onload=function(){
+        document.getElementById('all').checked=true
+        filterOrders('all');
+      }
+
+
+            document.getElementById('search').addEventListener
+        ("click", () => {
+          let searchInput = document.getElementById("search-input").value;
+          let elements = document.querySelectorAll(".product-name");
+          let elementsOfBrand = document.querySelectorAll(".brand-name");
+
+          let cards = document.querySelectorAll(".cards")
+
+
+          elements.forEach((element, index) => {
+            console.log(element.innerText)
+            console.log(searchInput.toUpperCase())
+            if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+              cards[index].classList.remove("hide");
+            }
+            else {
+
+              elementsOfBrand.forEach((element, indexx) => {
+
+                if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+                  cards[indexx].classList.remove("hide");
+                }
+                else {
+                  cards[index].classList.add("hide");
+                }
+              })
+            }
+          })
+        })
+
+    </script>
+    <style>
+      .hide{
+        display: none !important
+      }
+    </style>
+</body>
+<%- include('../partials/footer')%>

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-product.productname%></title>
+    <link rel='stylesheet' href='/stylesheets/card.css' />
+    <link rel='stylesheet' href='https://sachinchoolur.github.io/lightslider/dist/css/lightslider.css'>
+    <style>
+         /* === BASE HEADING === */ 
+
+ .twelve h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color: #c50000;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color: #c50000;
+    content: '';
+    display: block;
+  position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* body {
+  background: #eee;
+} */
+.heading {
+  position: relative;
+  /* background: #f8f8f8; */
+  width: 90%;
+  max-width: 500px;
+  padding: 2em;
+  margin: 1.5em auto;
+  /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+  background-color: #c50000;
+}
+.badges{
+  background-color: rgb(255, 0, 0);
+  height: 25px;
+  width: 180px;
+right: 0px;
+  position: absolute;
+  
+}
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/navbar')%>
+
+        <div class="container mt-5 mb-5 ">
+            <div class="row d-flex justify-content-center ">
+                <div class="col-md-10">
+                    
+                    
+                    <div class="card description">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="images p-3">
+            
+            <div class="text-center p-4">
+             
+
+
+
+                 <img id="zoom" src="<%-product.images[0].url%>" 
+
+                                            width="250" />
+
+                                         </div>
+                                    <div class="thumbnail text-center"> <img onclick="change_image(this)"
+                                            src="<%-product.images[1].url%>" width="70"> <img
+                                            onclick="change_image(this)" src="<%-product.images[2].url%>" width="70">
+                                        <img onclick="change_image(this)" src="<%-product.images[3].url%>" width="70">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
+                            <div class="col-md-6 ">
+                                
+
+                                <div class="product p-4">
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i>
+                                            <span class="ml-1"> <a href="/" class="link-dark">Back</a></span> </div> 
+                                            <%if(user){%>
+                                                <%if(inWishlist==null){%>
+                                                    <i class="fa-regular fa-heart"></i>
+                                            <%}else{%>
+                                            <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                                            <%}%> 
+
+                                            <%}%> 
+                                    </div>
+                                    <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand"><%-product.brand%></span>
+                                        <h5 class="text-uppercase">
+                                            <%-product.productname%>
+                                        </h5>
+                                        <div class="price d-flex flex-row align-items-center"> <span
+                                                class="act-price">&#8377; <%-product.price%> &nbsp;</span>
+                                            <div class="ml-2">  <span>
+                                                          
+                                                            <%if(category.offer.discount!=null){%>
+                                                              <%if(product.discount>category.offer.discount){%>
+                                                                <%-product.discount%>%Off
+                                                                <%}else{%>
+                                                                  <%-category.offer.discount%>%Off
+                                                                <%}%>
+                                                                <%}else{%>
+                                                                  <%-product.discount%>%Off
+                                                                <%}%>        
+                                                          
+                                                </span> </div>
+                                        </div>
+                                    </div>
+                                    <p class="about">
+                                        <!-- <%-product.description%> -->
+                                    </p>
+                                    <div class="sizes mt-5">
+                                        <h6 class="text-uppercase">Size</h6> <label class="radio"> <input type="radio"
+                                                name="size" value="S" checked> <span>S</span> </label> <label
+                                            class="radio"> <input type="radio" name="size" value="M"> <span>M</span>
+                                        </label> <label class="radio"> <input type="radio" name="size" value="L">
+                                            <span>L</span> </label> <label class="radio"> <input type="radio"
+                                                name="size" value="XL"> <span>XL</span> </label> <label class="radio">
+                                            <input type="radio" name="size" value="XXL"> <span>XXL</span> </label>
+                                    </div>
+                                    
+                                    <div class="cart mt-4 align-items-center">
+                                      <%if(product.stock==0){%>
+                                        <button
+                                            class="btn btn-outline-danger text-uppercase mr-2 px-4" type="submit" style="width:220px" >Add to cart</button>
+                                        <%}else{%>
+                                        <%if(user){%>
+                                            <%if(inCart==null){%>
+                                     
+                                               <a href="/addtoCart/<%-product._id%>">
+                                             <button
+                                            class="btn btn-outline-danger text-uppercase mr-2 px-4" type="submit" style="width:220px">Add to cart</button></a> 
+                                            <%}else{%>
+                                                <a href="/Cart">
+                                                    <button
+                                                   class="btn btn-outline-danger text-uppercase mr-2 px-4" type="submit" style="width:220px">Go TO Cart</button></a>
+                                                   <%}%> 
+                                        <!-- </form> -->
+                                        <%}else{%>
+                                          <%if(inCart==null){%>
+                                            <a href="/addtoGuestCart/<%-product._id%>">
+                                                <button
+                                                class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button>
+                                            </a>        
+                                            <%}else{%>
+                                              <a href="/guestCart">
+                                                  <button
+                                                 class="btn btn-danger text-uppercase mr-2 px-4" type="submit">Go TO Cart</button></a>
+                                                 <%}%>                                 
+                                            <%}%> 
+                                            <%}%> 
+                                            <%if(user){%>
+                                                <%if(inWishlist==null){%>
+                                                    <a onclick="confirmation('T','<%-product._id%>')" >
+                                                        <button 
+                                                       class="btn btn-outline-dark text-uppercase mr-2 px-4" type="submit" style="width:240px">Add to Wishlist</button></a> 
+                                             
+                                                    <%}else{%>
+                                                        <a onclick="confirmation('F','<%-product._id%>')" class="btn btn-outline-danger text-uppercase mr-2 px-4" style="width:240px">Remove From Wishlist</a>
+                                                
+                                             <%}%> 
+                                         <!-- </form> -->
+                                         <%}else{%>
+                                             <a href="/loginneeded">
+                                                 <button
+                                                 class="btn btn-danger text-uppercase mr-2 px-4">Add to Wishlist</button>
+                                             </a>                                        
+                                             <%}%> 
+                                             <%if(product.stock==0){%>
+                                              <p class="card-text text-light text-center mt-3 bg-danger">
+                                                Currently Unavailable           </p>
+                                                <%}%>
+                                        </div>
+              
+
+                                            
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="offer-dedicated-body-left">
+                      <div class="tab-content" id="pills-tabContent">
+                                 
+                          <div class="tab-pane fade active show" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+                              <!-- <div id="ratings-and-reviews" class="bg-white rounded shadow-sm p-4 mb-4 clearfix restaurant-detailed-star-rating">
+                                  <span class="star-rating float-right">
+                                            <a href="#"><i class="icofont-ui-rating icofont-2x active"></i></a>
+                                            <a href="#"><i class="icofont-ui-rating icofont-2x active"></i></a>
+                                            <a href="#"><i class="icofont-ui-rating icofont-2x active"></i></a>
+                                            <a href="#"><i class="icofont-ui-rating icofont-2x active"></i></a>
+                                            <a href="#"><i class="icofont-ui-rating icofont-2x"></i></a>
+                                            </span>
+                                  <h5 class="mb-0 pt-1">Rate this Place</h5>
+                              </div>
+                              <div class="bg-white rounded shadow-sm p-4 mb-4 clearfix graph-star-rating">
+                                  <h5 class="mb-0 mb-4">Ratings and Reviews</h5>
+                                  <div class="graph-star-rating-header">
+                                      <div class="star-rating">
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating"></i></a> <b class="text-black ml-2">334</b>
+                                      </div>
+                                      <p class="text-black mb-4 mt-2">Rated 3.5 out of 5</p>
+                                  </div>
+                                  <div class="graph-star-rating-body">
+                                      <div class="rating-list">
+                                          <div class="rating-list-left text-black">
+                                              5 Star
+                                          </div>
+                                          <div class="rating-list-center">
+                                              <div class="progress">
+                                                  <div style="width: 56%" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                      <span class="sr-only">80% Complete (danger)</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="rating-list-right text-black">56%</div>
+                                      </div>
+                                      <div class="rating-list">
+                                          <div class="rating-list-left text-black">
+                                              4 Star
+                                          </div>
+                                          <div class="rating-list-center">
+                                              <div class="progress">
+                                                  <div style="width: 23%" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                      <span class="sr-only">80% Complete (danger)</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="rating-list-right text-black">23%</div>
+                                      </div>
+                                      <div class="rating-list">
+                                          <div class="rating-list-left text-black">
+                                              3 Star
+                                          </div>
+                                          <div class="rating-list-center">
+                                              <div class="progress">
+                                                  <div style="width: 11%" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                      <span class="sr-only">80% Complete (danger)</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="rating-list-right text-black">11%</div>
+                                      </div>
+                                      <div class="rating-list">
+                                          <div class="rating-list-left text-black">
+                                              2 Star
+                                          </div>
+                                          <div class="rating-list-center">
+                                              <div class="progress">
+                                                  <div style="width: 2%" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                      <span class="sr-only">80% Complete (danger)</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="rating-list-right text-black">02%</div>
+                                      </div>
+                                  </div>
+                                  <div class="graph-star-rating-footer text-center mt-3 mb-3">
+                                      <button type="button" class="btn btn-outline-primary btn-sm">Rate and Review</button>
+                                  </div>
+                              </div> -->
+                              <%if(product.reviews.length>0){%>
+
+                              <div class="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
+                                  <!-- <a href="#" class="btn btn-outline-primary btn-sm float-right">Top Rated</a> -->
+                                  <h5 class="mb-2 text-center">All Ratings and Reviews</h5>
+        <% for(let i=0;i< reviewCount ;i++){%>
+<hr>
+                                  <div class="reviews-members pt-4 pb-4">
+                                      <div class="media">
+                                          <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
+                                          <div class="media-body">
+                                              <div class="reviews-members-header">
+                                                  <span class="star-rating float-right">
+                                                        <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                        <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                        <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                        <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                        <a href="#"><i class="icofont-ui-rating"></i></a>
+                                                        </span>
+                                                  <h6 class="mb-1"><a class="text-black" href="#"><%-product.reviews[i].username%></a></h6>
+                                                  <p class="text-gray">Tue, 20 Mar 2020</p>
+                                              </div>
+                                              <div class="fw-bold text-success"><%-product.reviews[i].rating%>&nbsp;<i class="fa-solid fa-star"></i>  </div>
+                                              <div class="reviews-members-body">
+                                                  <p><%-product.reviews[i].body%></p>
+                                              </div>
+                                              <div class="reviews-members-footer">
+                                                
+                                                  <a class="total-like" href="#"><i class="icofont-thumbs-up"></i> 856M</a> <a class="total-like" href="#"><i class="icofont-thumbs-down"></i> 158K</a>
+                                                  <%if(user){%>
+                              
+                                                  <%if(product.reviews[i].user==user._id){%>
+                                               
+                                                  <div class="d-flex justify-content-end"><a class="btn"
+                                                    onclick="confirmationForReview('<%-product._id%>','<%-product.reviews[i]._id%>')"><i  class="fa-solid fa-trash" ></i></a></div>
+                                                  <%}%> 
+                                                   <%}%> 
+ 
+                                               
+
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                          <%}%> 
+                          <%if(product.reviews.length>3){%>
+
+                            <hr>
+
+                                                                   <a class="text-center w-100 d-block my-4 font-weight-bold" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">See All Reviews</a>
+                                                                   <%}%> 
+
+
+
+                                                                 
+                                                           
+                                                           <div class="collapse" id="collapseExample">
+        <% for(let i=3;i< product.reviews.length ;i++){%>
+          <hr>                          
+                                  <div class="reviews-members pt-4 pb-4">
+                                    <div class="media">
+                                        <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
+                                        <div class="media-body">
+                                            <div class="reviews-members-header">
+                                                <span class="star-rating float-right">
+                                                      <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                      <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                      <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                      <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                                      <a href="#"><i class="icofont-ui-rating"></i></a>
+                                                      </span>
+                                                <h6 class="mb-1"><a class="text-black" href="#"><%-product.reviews[i].username%></a></h6>
+                                                <p class="text-gray">Tue, 20 Mar 2020</p>
+                                            </div>
+                                            <div class="fw-bold text-success"><%-product.reviews[i].rating%>&nbsp;<i class="fa-solid fa-star"></i>  </div>
+                                            <div class="reviews-members-body">
+                                                <p><%-product.reviews[i].body%></p>
+                                               
+                                            </div>
+                                          
+                                            <div class="reviews-members-footer">
+                                                <a class="total-like" href="#"><i class="icofont-thumbs-up"></i> 856M</a> <a class="total-like" href="#"><i class="icofont-thumbs-down"></i> 158K</a>
+                                                <%if(user){%>
+                              
+                                                  <%if(product.reviews[i].user==user._id){%>
+                                               
+                                                  <div class="d-flex justify-content-end"><a class="btn"
+                                                    onclick="confirmationForReview('<%-product._id%>','<%-product.reviews[i]._id%>')"><i  class="fa-solid fa-trash" ></i></a></div>
+                                                  <%}%> 
+                                                   <%}%> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                          <%}%> 
+
+                                                             </div>
+                              </div>
+                          <%}%> 
+                             
+                                
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+        <%if(products.length > 1){%>
+        <div class="twelve heading">
+            <h1>Similar Products</h1>
+          </div>
+          <div class="container page-wrapper ">
+            <div class="page-inner">
+              <div class="row">
+        <% for(let p of products){%>
+      
+            <%if(p.productname != product.productname){%>
+              <div class="col-12 col-sm-8 col-md-6 col-lg-3 py-3">
+                
+                <div class="card">
+                  <div class="d-flex justify-content-center">
+              <%if(p.stock==0){%>
+
+                <div class="badge badges"><h6>Currently Unavailable</h6></div>
+                <%}%>
+
+
+                  <img class="card-img" src="<%-p.images[0].url%>" alt="Vans" style="width: 155px; height:200px">
+      
+                  </div>
+                  <div class="card-img-overlay d-flex justify-content-end">
+                      <%if(user){%> 
+      
+      
+      
+                      <%if(p.inWishlist){%>
+                    <a  onclick="confirmation('F','<%-p._id%>')" class="card-link text-danger like">
+      
+                        <i class="fas fa-heart"></i></a>
+                        <%}else{%>
+                    <a onclick="confirmation('T','<%-p._id%>')" class="card-link text-danger like">
+      
+                          <i class="fa-regular fa-heart"></i></a>
+                          
+      
+                        <%}%>
+                        <%}else{%>
+                          <i class="fa-regular fa-heart"></i>
+      
+                          <%}%> 
+                    
+                  </div>
+                  <div class="card-body">
+                    
+                    <h6 class="card-subtitle mb-2 text-muted"><span class="p-company fw-bold text-danger"><%-p.brand%></span>
+                    </h6>
+                    <p class="card-text">
+                      <%-p.productname%>            </p>
+                      <div class="fw-bold">
+                        <%if(category.offer.discount!=null){%>
+                          <%if(p.discount>category.offer.discount){%>
+                            <%-p.discount%>%Off
+                            <%}else{%>
+                              <%-category.offer.discount%>%Off
+                            <%}%>
+                            <%}else{%>
+                              <%-p.discount%>%Off
+                            <%}%>       
+                      </div>
+                    <!-- <div class="options d-flex flex-fill">
+                       <select class="custom-select mr-1">
+                          <option selected>Color</option>
+                          <option value="1">Green</option>
+                          <option value="2">Blue</option>
+                          <option value="3">Red</option>
+                      </select>
+                      <select class="custom-select ml-1">
+                          <option selected>Size</option>
+                          <option value="1">41</option>
+                          <option value="2">42</option>
+                          <option value="3">43</option>
+                      </select>
+                    </div> -->
+                    <div class="buy d-flex justify-content-between align-items-center">
+                      <div class="price text-success"><h6 class="mt-4">&nbsp; &#8377; <%-p.price%></h5></div>
+                      
+                       <a href="/productview/<%-p._id%>" class="btn btn-danger mt-3" style="z-index: 20">View Details</a>
+                    </div>
+                   
+                  </div>
+                </div>
+                
+              </div>
+           
+      
+            
+            
+        
+      
+                <!-- <div class="el-wrapper col-lg-4 col-md-6">
+                  <div class="box-up">
+                    <img class="img" src="<%-p.images[0].url%>"alt="" style=" max-width: 100%;
+                    max-height:100%;">
+                    <div class="img-info">
+                      <div class="info-inner">
+                        
+                        <span class="p-company fw-bold text-danger"><%-p.brand%></span>
+      
+                      </div>
+      
+                      <div class="a-size">Available sizes : <span class="size">S , M , L , XL</span></div>
+                  
+                      <div class="a-size">
+                        <span class="p-company"><%-p.productname%></span>
+      
+                       
+                        
+                        <div>Available sizes : <span class="size">S , M , L , XL</span></div>
+                        <div class="fw-bold size"><%-p.discount%>% Off</div>
+                        
+                        
+                      </div> 
+                    </div>
+                  </div>
+          
+                  <div class="box-down">
+                    <div class="h-bg">
+                      <div class="h-bg-inner"></div>
+                    </div>
+          
+                    <a class="cart" href="/productview/<%-p._id%>">
+                      <span class="price"><s>&#8377; <%-p.price%></s><strong class="ms-2 text-danger">&#8377; <%-p.actualprice%></strong>
+                        
+                        <%if(p.inWishlist){%>
+                          <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                          <%}else{%>
+                            <i class="fa-regular fa-heart"></i>
+                          <%}%> </span>
+                      <span class="add-to-cart">
+                        <span class="txt">
+                          View Details
+                    </a>
+                  </div>
+                </div> -->
+                <%}%> 
+          <%}%>
+      
+                    </div>
+            </div>
+          </div>
+          <%}%>
+        
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script src='https://sachinchoolur.github.io/lightslider/dist/js/lightslider.js'></script>
+<script> $('#lightSlider').lightSlider({ gallery: true, item: 1, loop: true, slideMargin: 0, thumbItem: 9 });</script>
+<script src="/javascripts/zoom.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#zoom").imagezoomsl({
+
+            zoomrange: [4, 4]
+        });
+    })
+</script>
+
+ 
+       <script>function change_image(image) {
+
+                var container = document.getElementById("zoom");
+
+                container.src = image.src;
+            }
+            document.addEventListener("DOMContentLoaded", function (event) {
+
+            });
+           
+      
+        //     function confirmation(R){
+        //         if(R=='T')
+        //     sessionStorage.setItem("addToWishlist", "true");
+        //     if(R=='F')
+        //     sessionStorage.setItem("removedFromWishlist", "true");
+
+        //     }
+        //     function myFunction(msg) {
+        //     alertify.success(msg);
+        //   }
+        //   window.onload = function () {
+        //     var addToWishlist = sessionStorage.getItem("addToWishlist");
+        //     var removedFromWishlist = sessionStorage.getItem("removedFromWishlist");
+
+            
+                    
+        //     if (addToWishlist) {
+        //       sessionStorage.removeItem("addToWishlist");
+        //       myFunction('Added to your Wishlist');
+        //     }
+        //     if (removedFromWishlist) {
+        //       sessionStorage.removeItem("removedFromWishlist");
+        //       myFunction('Removed From your Wishlist');
+        //     }
+           
+          
+        //   }
+          
+
+
+
+          function confirmation(R,proId){
+                if(R=='T'){
+            sessionStorage.setItem("addToWishlist", "true");
+            addToWishlist(proId)
+                } 
+            if(R=='F'){
+            sessionStorage.setItem("removedFromWishlist", "true");
+            deleteProduct(proId)
+            }
+
+            }
+            function myFunction(msg) {
+            alertify.success(msg);
+          }
+          window.onload = function () {
+            var addToWishlist = sessionStorage.getItem("addToWishlist");
+            var removedFromWishlist = sessionStorage.getItem("removedFromWishlist");
+
+            
+                    
+            if (addToWishlist) {
+              sessionStorage.removeItem("addToWishlist");
+              myFunction('Added to your Wishlist');
+            }
+            if (removedFromWishlist) {
+              sessionStorage.removeItem("removedFromWishlist");
+              myFunction('Removed from your Wishlist');
+            }
+           
+          
+          }
+          function addToWishlist(productId) {
+          $.ajax({
+            url: '/addToWishlist',
+            data: {
+              proId: productId     
+            },
+            method: 'patch',
+            success: (response) => {
+              
+                document.location.reload();
+            }
+          })
+        }
+        function deleteProduct(productId) {
+          $.ajax({
+            url: '/removeFromWishlist',
+            data: {
+              id: productId
+            },
+            method: 'patch',
+            success: (response) => {
+                document.location.reload();       
+            }
+          })
+        }
+
+        function confirmationForReview(productId,reviewId) {
+            Swal.fire({
+              title: 'Are you sure ?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteReview(productId,reviewId)
+              }
+            })
+          }
+
+          function deleteReview(productId,reviewId) {
+          $.ajax({
+            url: `/productview/${productId}/reviews/${reviewId}`,
+            data: {
+              product: productId,
+              review: reviewId
+            },
+            method: 'delete',
+            success: (response) => {
+              sessionStorage.setItem("deleteReview", "true");
+                document.location.reload();       
+            }
+          })
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  body{
+background:#dcdcdc;    
+}
+.total-like-user-main a {
+  display: inline-block;
+  margin: 0 -17px 0 0;
+}
+.total-like {
+  border: 1px solid;
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 500;
+  height: 34px;
+  line-height: 33px;
+  padding: 0 13px;
+  vertical-align: top;
+}
+.restaurant-detailed-ratings-and-reviews hr {
+  margin: 0 -24px;
+}
+.graph-star-rating-header .star-rating {
+  font-size: 17px;
+}
+.progress {
+  background: #f2f4f8 none repeat scroll 0 0;
+  border-radius: 0;
+  height: 30px;
+}
+.rating-list {
+  display: inline-flex;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.rating-list-left {
+  height: 16px;
+  line-height: 29px;
+  width: 10%;
+}
+.rating-list-center {
+  width: 80%;
+}
+.rating-list-right {
+  line-height: 29px;
+  text-align: right;
+  width: 10%;
+}
+.restaurant-slider-pics {
+  bottom: 0;
+  font-size: 12px;
+  left: 0;
+  z-index: 999;
+  padding: 0 10px;
+}
+.restaurant-slider-view-all {
+  bottom: 15px;
+  right: 15px;
+  z-index: 999;
+}
+.offer-dedicated-nav .nav-link.active,
+.offer-dedicated-nav .nav-link:hover,
+.offer-dedicated-nav .nav-link:focus {
+  border-color: #3868fb;
+  color: #3868fb;
+}
+.offer-dedicated-nav .nav-link {
+  border-bottom: 2px solid #fff;
+  color: #000000;
+  padding: 16px 0;
+  font-weight: 600;
+}
+.offer-dedicated-nav .nav-item {
+  margin: 0 37px 0 0;
+}
+.restaurant-detailed-action-btn {
+  margin-top: 12px;
+}
+.restaurant-detailed-header-right .btn-success {
+  border-radius: 3px;
+  height: 45px;
+  margin: -18px 0 18px;
+  min-width: 130px;
+  padding: 7px;
+}
+.text-black {
+  color: #000000;
+}
+.icon-overlap {
+  bottom: -23px;
+  font-size: 74px;
+  opacity: 0.23;
+  position: absolute;
+  right: -32px;
+}
+.menu-list img {
+  width: 41px;
+  height: 41px;
+  object-fit: cover;
+}
+.restaurant-detailed-header-left img {
+  width: 88px;
+  height: 88px;
+  border-radius: 3px;
+  object-fit: cover;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+}
+.reviews-members .media .mr-3 {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+.rounded-pill {
+  border-radius: 50rem!important;
+}
+.total-like-user {
+  border: 2px solid #fff;
+  height: 34px;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+  width: 34px;
+}
+.total-like-user-main a {
+  display: inline-block;
+  margin: 0 -17px 0 0;
+}
+.total-like {
+  border: 1px solid;
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 500;
+  height: 34px;
+  line-height: 33px;
+  padding: 0 13px;
+  vertical-align: top;
+}
+.restaurant-detailed-ratings-and-reviews hr {
+  margin: 0 -24px;
+}
+.graph-star-rating-header .star-rating {
+  font-size: 17px;
+}
+.progress {
+  background: #f2f4f8 none repeat scroll 0 0;
+  border-radius: 0;
+  height: 30px;
+}
+.rating-list {
+  display: inline-flex;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.rating-list-left {
+  height: 16px;
+  line-height: 29px;
+  width: 10%;
+}
+.rating-list-center {
+  width: 80%;
+}
+.rating-list-right {
+  line-height: 29px;
+  text-align: right;
+  width: 10%;
+}
+.restaurant-slider-pics {
+  bottom: 0;
+  font-size: 12px;
+  left: 0;
+  z-index: 999;
+  padding: 0 10px;
+}
+.restaurant-slider-view-all {
+  bottom: 15px;
+  right: 15px;
+  z-index: 999;
+}
+
+.progress {
+  background: #f2f4f8 none repeat scroll 0 0;
+  border-radius: 0;
+  height: 30px;
+}
+
+
+
+</style>
+</body>
+<%- include('./partials/footer')%>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Products</title>
+</head>
+
+<body>
+  <%- include('../partials/admin-navbar')%>
+  <%- include('../partials/sidebar')%>
+            <div class="content">
+                <!-- <h2 class="text-center">Add Products</h2>
+                <form action="/admin/addproduct" enctype="multipart/form-data"  method="post">
+                    <div>
+                        <label for="productname">Product Name</label>
+                        <input type="text" id="productname" name="productname">
+                    </div>
+                    <div>
+                        <label for="category">Category</label>
+                        <input type="text" id="category" name="category">
+                    </div>
+                    <div>
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description">
+                </textarea>
+                    </div>
+                    <div>
+                        <label for="price">Price</label>
+                        <input type="text" id="price" name="price">
+                    </div>
+                    <div>
+                        <label for="discount">Discount</label>
+                        <input type="text" id="discount" name="discount">
+                    </div>
+                    <div>
+                        <label for="services">Services</label>
+                        <input type="text" id="services" name="services">
+                    </div>
+                     <div>
+                        <p>Size:</p>
+                        <input type="radio" id="S" name="small" value="S">
+                        <label for="">Small</label><br>
+                        <input type="radio" id="M" name="medium" value="M">
+                        <label for="age2">Medium</label><br>
+                        <input type="radio" id="L" name="large" value="L">
+                        <label for="age3">Large</label><br>
+                        <input type="radio" id="XL" name="extralarge" value="XL">
+                        <label for="age3">Extra Large</label><br><br>
+                    </div> 
+                    <div>
+                        <label for="specification">Specification</label>
+                        <input type="text" id="specification" name="specification">
+                    </div>
+                    <div>
+                        <label for="stock">Stock</label>
+                        <input type="text" id="stock" name="stock">
+                    </div>
+                    <div>
+                        <label for="image">main_image</label>
+                        <input id="image" name="image" type="file">
+                    </div>
+                    <div>
+                        <label for="filebutton">auxilary_images</label>
+                        <input id="filebutton" name="filebutton" type="file" multiple>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit"
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                    </div>
+
+                </form> -->
+
+                <div class="row">
+                    <h2 class="text-center fw-bold mt-3">ADD PRODUCT</h2>
+                    <div class="col-6 offset-3">
+
+<form method="post" action="/admin/addProduct" enctype="multipart/form-data" id="myForm">
+    <div class="mb-3">
+      <label for="productname" class="form-label">Name</label>
+      <input type="text" class="form-control" name="productname" id="productname" / onkeyup="validateName()">
+      <span id="name-error"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-select" name="category" id="category" onclick="validateCategory()">
+        <option selected>Choose...</option>
+        <% for(let c of category){%>
+        <option value="<%-c._id%>"><%-c.name%></option>
+        <%}%>
+      </select>
+      <span id="category-error"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand</label>
+      <select class="form-select" name="brand" id="brand" onclick="validateBrand()">
+        <option selected>Choose...</option>
+        <% for(let b of brand){%>
+        <option value="<%-b.name%>"><%-b.name%></option>
+        <%}%>
+      </select>
+      <span id="brand-error"></span>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label for="discount" class="form-label">Discount</label>
+        <div class="input-group">
+          <span class="input-group-text">&#8377;</span>
+          <input type="number" id="discount" name="discount" class="form-control" onkeyup="validateDiscount()"/>
+          <span class="input-group-text">.00</span>
+        </div>
+        <span id="discount-error"></span>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+          <label for="price" class="form-label">Price</label>
+          <div class="input-group">
+            <span class="input-group-text">&#8377;</span>
+            <input type="number" id="price" name="price" class="form-control" />
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="col-md-6">
+      <label for="stock" class="form-label">Stock</label>
+      <input type="number" id="stock" name="stock" class="form-control" />
+    </div>
+
+    <!-- <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input class="form-control" type="file" id="image" name="image"/>
+    </div> -->
+
+    <div class="mb-3">
+      <label for="multi-image" class="form-label">Images</label>
+      <input class="form-control" type="file" id="multi-image" name="filebutton" multiple />
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" name="description" id="description" rows="3" onkeyup="validateDescription()"></textarea>
+      <span id="description-error"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="specification" class="form-label">Specification</label>
+        <input type="text" class="form-control" name="specification" id="specification" />
+      </div>
+      <div class="mb-3">
+        <label for="services" class="form-label">Service</label>
+        <input type="text" class="form-control" name="services" id="services" />
+    <span id="submit-error"></span>
+        
+      </div>
+
+
+    <button type="submit" class="btn btn-primary align-center">Submit</button>
+  </form>
+</div>
+                </div>
+</div>
+<script>
+  const form = document.getElementById("myForm");
+  const nameError = document.getElementById("name-error");
+  const discountError = document.getElementById("discount-error");
+  const descriptionError = document.getElementById("description-error");
+  const categoryError = document.getElementById("category-error");
+  const brandError = document.getElementById("brand-error");
+
+  form.addEventListener('submit', e => {
+      
+      if(validateName()&&validateCategory()&&validateBrand()&&validateDiscount()&&validateDescription()){
+        sessionStorage.setItem("addProduct", "true");
+
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+    function validateName() {
+    var name=document.getElementById('productname').value.trim();  
+
+    if (name.length==0) {
+        nameError.innerHTML='Name is Required';
+        nameError.style.color='red'
+        return false;
+    }
+
+    // if (!name.match(/^[A-Za-z]*$/)){
+    //     nameError.innerHTML='Write a Validname';
+    //     nameError.style.color='red'
+    //     return false;
+    // }
+    
+    nameError.innerHTML='Name is valid';
+    nameError.style.color='green'
+    return true;
+}
+function validateDiscount() {
+    var discount=document.getElementById('discount').value;  
+console.log(discount)
+    if (discount.length==0) {
+        discountError.innerHTML='Discount is Required';
+        discountError.style.color='red'
+        return false;
+    }
+    if (discount>99) {
+        discountError.innerHTML='Cannot have more than 99%';
+        discountError.style.color='red'
+        return false;
+    }
+    discountError.innerHTML='Discount is valid';
+    discountError.style.color='green'
+    return true;
+}
+
+
+function validateDescription() {
+    var description=document.getElementById('description').value.trim();  
+    if (description.length==0) {
+        descriptionError.innerHTML='Description is Required';
+        descriptionError.style.color='red'
+        return false;
+    }
+
+    // if (!description.match(/^[A-Za-z]*$/)){
+    //     descriptionError.innerHTML='Write a Valid description';
+    //     descriptionError.style.color='red'
+    //     return false;
+    // }
+    
+    descriptionError.innerHTML='Description is valid';
+    descriptionError.style.color='green'
+    return true;
+}
+
+function validateCategory() {
+    var category=document.getElementById('category').value.trim();  
+    console.log(category)
+
+    if (category=="Choose...") {
+        categoryError.innerHTML='Please select a category';
+        categoryError.style.color='red'
+        return false;
+    }
+
+   
+    
+    categoryError.innerHTML='Category is valid';
+    categoryError.style.color='green'
+    return true;
+}
+
+function validateBrand() {
+    var brand=document.getElementById('brand').value.trim();  
+    console.log(brand)
+
+    if (brand=="Choose...") {
+        brandError.innerHTML='Please select a brand';
+        brandError.style.color='red'
+        return false;
+    }
+
+   
+    
+    brandError.innerHTML='Brand is valid';
+    brandError.style.color='green'
+    return true;
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+
+
+</head>
+
+<body>
+    <%- include('../partials/admin-navbar')%>
+
+        <%- include('../partials/sidebar')%>
+            <div class="content" style="background-color: #eee;">
+                <section class="h-100 h-custom">
+                    <div class="container py-3 h-100">
+                        <div class="row d-flex justify-content-center  h-100">
+                            <div class="col-10 ">
+                                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                                    <div class="card-body p-0">
+                                        <div class="row g-0">
+                                            <div class="col-lg-12">
+                                                <div class="p-4">
+                                                    <div
+                                                        class="row mb-0 d-flex justify-content-between align-items-center">
+                                                        <div class="col-md-12">
+                                                            <p class=" mb-0 f"><b>Delivery Address: <br><br>
+                                                                    <%-order.address.fullname%>&nbsp;
+                                                                </b> <span class="badge text-muted"
+                                                                    style="background-color: #d0d0d0">
+                                                                    <%-order.address.addresstype%>
+                                                                </span> <br>
+                                                                <%-order.address.address_line%>,
+                                                                    <%-order.address.locality%>,
+                                                                        <%-order.address.city_district_town%>,
+                                                                            <%-order.address.state%>-
+                                                                                <%-order.address.pincode%> <br>
+                                                                                    <b>Phone no:</b><br>
+                                                                                    <%-order.address.phoneno%>
+                                                                                        <%-order.address.alt_phoneno%>
+                                                                                            <br>
+                                                                                            <b> Placed : </b>
+                                                                                            <%-order.placedDate%>
+                                                                                                
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+
+
+
+
+                                                    
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <section class="h-100 h-custom">
+                    <div class="container py-3 h-100">
+                        <div class="row d-flex justify-content-center  h-100">
+                            <div class="col-10 ">
+                                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                                    <div class="card-body p-0">
+                                        <div class="row g-0">
+                                            <div class="col-lg-12">
+                                                <div class="p-4">
+                                                    <% for(let c of order.products){%>
+                                                        <div
+                                                            class="p-2 row mb-4 d-flex justify-content-between align-items-center">
+
+                                                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                                                <img src="<%-c.product.images[0].url%>"
+                                                                    class="img-fluid rounded-3" alt="Cotton T-shirt"
+                                                                    style="width: 100px;">
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                                                <h6 class="text-muted">
+                                                                    <%-c.product.categoryname%>
+                                                                </h6>
+                                                                <h6 class="text-danger">
+                                                                    <%-c.product.brand%>
+                                                                </h6>
+
+                                                                <h6 class="text-black mb-0">
+                                                                    <%-c.product.productname%>
+                                                                </h6>
+
+                                                            </div>
+
+                                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                                <span>
+                                                                    <h6 class="mb-0">Qty : <%-c.quantity%>
+                                                                    </h6>
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                                <h6 class="mb-0">&#8377;<%-c.product.actualprice%>
+                                                                </h6>
+                                                            </div>
+                                                            <div class="col-md-3 col-lg-2 col-xl-3 offset-lg-1">
+                                                                <%if(c.status=='confirmed'){%>
+                                                                    <div class="dropdown">
+                                                                        <button class="btn btn-sm  dropdown-toggle"
+                                                                            type="button" data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            style="background: rgb(234, 236, 238)">
+                                                                            Confirmed
+                                                                        </button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a class="dropdown-item"
+                                                                                    onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','shipped')">Shipped</a>
+                                                                            </li>
+                                                                            <li><a class="dropdown-item">Out For
+                                                                                    Delivery</a></li>
+                                                                            <li><a class="dropdown-item">Delivered</a>
+                                                                            </li>
+                                                                        </ul>
+
+                                                                    </div>
+                                                                    <%}else if(c.status=='shipped' ){%>
+                                                                        <div class="dropdown">
+                                                                            <button class="btn btn-sm  dropdown-toggle"
+                                                                                type="button" data-bs-toggle="dropdown"
+                                                                                aria-expanded="false"
+                                                                                style="background: rgba(4, 187, 187, 0.467)">
+                                                                                Shipped
+                                                                            </button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li><a class="dropdown-item"
+                                                                                        onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','outfordelivery')">Out
+                                                                                        For Delivery</a></li>
+                                                                                <li><a
+                                                                                        class="dropdown-item">Delivered</a>
+                                                                                </li>
+                                                                            </ul>
+
+                                                                        </div>
+                                                                        <%}else if(c.status=='outfordelivery' ){%>
+                                                                            <div class="dropdown">
+                                                                                <button
+                                                                                    class="btn btn-sm  dropdown-toggle"
+                                                                                    type="button"
+                                                                                    data-bs-toggle="dropdown"
+                                                                                    aria-expanded="false"
+                                                                                    style="background: rgba(161, 3, 178, 0.467)">
+                                                                                    Out For Delivery
+                                                                                </button>
+                                                                                <ul class="dropdown-menu">
+                                                                                    <li><a class="dropdown-item"
+                                                                                            onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','delivered')">Delivered</a>
+                                                                                    </li>
+                                                                                </ul>
+
+                                                                            </div>
+                                                                            <%}else if(c.status=='delivered' ){%>
+                                                                               
+                                                                                    <button
+                                                                                        class="btn btn-sm"
+                                                                                        type="button"
+                                                                                       
+                                                                                       
+                                                                                        style="background: rgba(0, 255, 55, 0.467)">
+                                                                                        Delivered
+                                                                                    </button>
+                                                                                   
+                                                                                   
+
+                                                                                <%}if(c.status=='cancelled'){%>
+                                                                                    <button class="btn btn-sm btn-sm"
+                                                                                        style="background: rgba(255, 0, 0, 0.467)">
+                                                                                        Cancelled
+                                                                                    </button>
+
+                                                                                    <%}%>
+
+
+
+
+
+
+
+                                                                                    <% if(c.status == "returnrequest"){%>
+                                                                                        <div class="dropdown">
+                                                                                            <button class="btn btn-warning dropdown-toggle " type="button"
+                                                                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                                                                                aria-expanded="false">
+                                                                                                <%-c.status%>
+                                                                                            </button>
+                                                                                            <div class="dropdown-menu" data-bs-toggle="dropdown" aria-labelledby="dropdownMenuButton">
+                                                                                                <a onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','returnapproved')" class="dropdown-item" 
+                                                                                                    href="#">Approve</a>
+                                                                                                <a onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','returncancelledbyadmin')" class="dropdown-item"
+                                                                                                    href="#">Reject</a>    
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    <%}%>
+                                                                                    <% if(c.status == "returnapproved"){%>
+                                                                                      <div class="dropdown">
+                                                                                          <button class="btn btn-success dropdown-toggle " type="button"
+                                                                                              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                                                                              aria-expanded="false">
+                                                                                              <%-c.status%>
+                                                                                          </button>
+                                                                                          <div class="dropdown-menu" data-bs-toggle="dropdown" aria-labelledby="dropdownMenuButton">
+                                                                                              <a onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','returnpickuped')" class="dropdown-item" 
+                                                                                                  href="#">Pickuped</a>
+                                                                                              <a onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','returncancelledbyadmin')" class="dropdown-item"
+                                                                                                  href="#">Reject</a>    
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  <%}%>
+                                                                                  <% if(c.status == "returnpickuped"){%>
+                                                                                    <div class="dropdown">
+                                                                                        <button class="btn btn-primary dropdown-toggle " type="button"
+                                                                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                                                                            aria-expanded="false">
+                                                                                            <%-c.status%>
+                                                                                        </button>
+                                                                                        <div class="dropdown-menu" data-bs-toggle="dropdown" aria-labelledby="dropdownMenuButton">
+                                                                                            <a onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','refunddone')" class="dropdown-item" 
+                                                                                                href="#">Refund Done</a>
+                                                                                            <a onclick="changeOrderStatus('<%-order._id%>','<%-c.item%>','returncancelledbyadmin')" class="dropdown-item"
+                                                                                                href="#">Reject</a>    
+                                                                                        </div>
+                                                                                    </div>
+                                                                                <%}%>
+                                                                                <% if(c.status == "refunddone"){%>
+                                                                                  <button class="btn btn-warning px-5" style="pointer-events: none;">  <%-c.status%> </button>
+                                                                                <%}%> 
+                                                                                       
+                                                                                      <% if(c.status == "returncancelledbyadmin"){%>
+                                                                                                                  
+                                                                                        <button class="btn btn-danger " style="pointer-events: none;"> Return Rejected</button>
+                                                                                       
+                                                                                    <%}%>
+                                                                    
+                                                                                
+
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <% if(c.status == "returnrequest"){%>
+
+                                                            <h6 class="text-end fw-bold"><%-c.returnReason%>
+                                                            </h6>
+                                                        <%}%>
+                                                        <%}%>
+
+
+                                                            <hr>
+                                                            
+
+                                                            <h6 class="text-end">Order Price : &#8377; <%-order.total%>
+                                                            </h6>
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+               
+            <script>
+                function changeOrderStatus(orderId, productId, status) {
+
+                    $.ajax({
+                        url: '/admin/orders/orderStatus',
+                        data: {
+                            order: orderId,
+                            product: productId,
+                            status: status
+                        },
+                        method: 'post',
+                        success: (response) => {
+
+                            location.reload()
+                        }
+                    })
+                }
+
+            </script>
+
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,360 @@
+<!-- Latest compiled and minified CSS
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+Optional theme
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+Latest compiled and minified JavaScript
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<style>
+    .product-grid{
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+.product-grid .product-image{
+    overflow: hidden;
+    position: relative;
+}
+.product-grid .product-image a.image{ display: block; }
+.product-grid .product-image img{
+    width: 100%;
+    height: auto;
+}
+.product-grid .product-image .pic-1{ transition: all 0.3s ease 0s; }
+.product-grid .product-image:hover .pic-1{ transform: translateX(100%); }
+.product-grid .product-image .pic-2{
+    width: 100%;
+    height: 100%;
+    transform: translateX(-101%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .product-image:hover .pic-2{ transform: translateX(0); }
+.product-grid .product-sale-label{
+    color: #fff;
+    background: #0a805e;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.product-grid .product-like-icon{
+    color: #696969;
+    font-size: 22px;
+    line-height: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.product-grid .product-like-icon:hover{ color: #0a805e; }
+.product-grid .product-like-icon:before,
+.product-grid .product-like-icon:after{
+    content: attr(data-tip);
+    color: #fff;
+    background-color: #000;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 7px 7px 5px;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .product-like-icon:after{
+    content: '';
+    height: 15px;
+    width: 15px;
+    padding: 0;
+    transform: translateX(-50%) rotate(45deg);
+    right: auto;
+    left: 50%;
+    top: 15px;
+    z-index: -1;
+}
+.product-grid .product-like-icon:hover:before,
+.product-grid .product-like-icon:hover:after{
+    visibility: visible;
+    top: 30px;
+}
+.product-grid .product-links{
+    width: 170px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    opacity: 0;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transition: all 0.3s ease 0s;
+}
+.product-grid:hover .product-links{
+    bottom: 40px;
+    opacity: 1;
+}
+.product-grid .product-links li{
+    display: inline-block;
+    margin: 0 2px;
+}
+.product-grid .product-links li a{
+    color: #fff;
+    background: #000;
+    font-size: 16px;
+    line-height: 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: block;
+    transition: all 0.3s ease 0s;
+}
+.product-grid:hover .product-links li a:hover{ background: #333; }
+.product-grid .product-content{
+    text-align: left;
+    padding: 15px 0 0;
+}
+.product-grid .title{
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0 0 8px;
+}
+.product-grid .title a{
+    color: #333;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .title a:hover{ color: #0a805e; }
+.product-grid .price{
+    color: #0a805e;
+    font-size: 16px;
+    font-weight: 500;
+}
+.product-grid .price span{
+    color: #555;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin: 0 5px 0 0;
+}
+@media screen and (max-width: 990px){
+    .product-grid{ margin: 0 0 30px; }
+}
+</style>
+
+
+<div class="col-md-3 col-sm-6">
+    <div class="product-grid">
+        <div class="product-image">
+            <a href="#" class="image">
+                <img class="pic-1" src="<%-product[0].images[0].url%>">
+                <img class="pic-2" src="<%-product[0].images[0].url%>">
+            </a>
+            <a href="#" class="product-like-icon" data-tip="Add to Wishlist">
+                <i class="far fa-heart"></i>
+            </a>
+            <ul class="product-links">
+                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="#"><i class="fa fa-random"></i></a></li>
+            </ul>
+        </div>
+        <div class="product-content">
+            <h3 class="title"><a href="#">Women's Top</a></h3>
+            <div class="price">$75.99</div>
+        </div>
+    </div>
+</div> -->
+<%- include('partials/navbar')%>
+
+<div class="container">
+    <div class="row my-3">
+  <% for(let p of product){%>
+
+        <div class="col-md-3 col-sm-6 my-3">
+            <div class="product-grid">
+                <div class="product-image" >
+                    <a href="#" class="image">
+                        <img class="pic-1" src="<%-p.images[0].url%>" style="width: 310px; height:400px">
+                        <img class="pic-2" src="<%-p.images[1].url%>" style="width: 310px; height:400px">
+                    </a>
+                     <span class="product-sale-label">sale!</span>
+                    <ul class="social">
+                        <li><a href="#" data-tip="Quick View"><i class="fa fa-eye py-2"></i></a></li>
+                        <li><a href="#" data-tip="Add to wishlist"><i class="fa fa-heart py-2"></i></a></li>
+                    </ul>
+                    <div class="product-rating">
+                        <ul class="rating">
+                            <li class="fas fa-star"></li>
+                            <li class="fas fa-star"></li>
+                            <li class="fas fa-star"></li>
+                            <li class="far fa-star"></li>
+                            <li class="far fa-star"></li>
+                        </ul>
+                        <a class="add-to-cart" href="#"> ADD TO CART </a>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#">Men's Shirt</a></h3>
+                    <div class="price"><span>$28.00</span>$20.00</div>
+                </div>
+            </div>
+        </div>
+    <%}%>
+       
+</div>
+<style>
+    .product-grid{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    transition: all 0.5s;
+}
+.product-grid:hover{ box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3); }
+.product-grid .product-image{
+    position: relative;
+    overflow: hidden;
+}
+.product-grid .product-image a.image{ display: block; }
+.product-grid .product-image img{
+    width: 100%;
+    height: auto;
+}
+.product-image .pic-1{
+    opacity: 1;
+    backface-visibility: hidden;
+    transition: all 0.5s;
+}
+.product-grid:hover .product-image .pic-1{ opacity: 0; }
+.product-image .pic-2{
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.5s;
+}
+.product-grid:hover .product-image .pic-2{ opacity: 1; }
+.product-grid .product-sale-label{
+    color: #fff;
+    background: #6da84a;
+    font-size: 14px;
+    font-style: italic;
+    text-transform: uppercase;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    border-radius: 50px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.product-grid .social{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    top: 15px;
+    right: 7px;
+}
+.product-grid .social li{
+    transform: translateX(60px);
+    transition: all 0.3s ease 0.3s;
+}
+.product-grid .social li:nth-child(2){ transition: all 0.3s ease 0.4s; }
+.product-grid:hover .social li{ transform: translateX(0); }
+.product-grid .social li a{
+    color: #707070;
+    background: #fff;
+    font-size: 16px;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 7px;
+    border-radius: 50px;
+    display: block;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .social li a:hover{ color: #6DA84A; }
+.product-grid .product-rating{
+    background: rgba(255,255,255,0.95);
+    width: 100%;
+    padding: 10px;
+    opacity: 0;
+    position: absolute;
+    bottom: -60px;
+    left: 0;
+    transition: all .2s ease-in-out 0s;
+}
+.product-grid:hover .product-rating{
+    opacity: 1;
+    bottom: 0;
+}
+.product-grid .rating{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    float: left;
+}
+.product-grid .rating li{
+    color: #6DA84A;
+    font-size: 13px;
+}
+.product-grid .rating li.far{ color: #999; }
+.product-grid .add-to-cart{
+    color: #6DA84A;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid #6DA84A;
+    float:right;
+    transition: all .2s ease-in-out 0s;
+}
+.product-grid .add-to-cart:hover{
+    color: #000;
+    border-color: #000;
+}
+.product-grid .product-content{
+    background: #F5F5F5;
+    padding: 15px;
+}
+.product-grid .title{
+    font-size: 18px;
+    text-transform: capitalize;
+    margin: 0 0 5px;
+}
+.product-grid .title a{
+    color: #111;
+    transition: all 500ms;
+}
+.product-grid .title a:hover{ color: #6DA84A; }
+.product-grid .price{
+    color: #707070;
+    font-size: 17px;
+    text-decoration: underline;
+}
+.product-grid .price span{
+    text-decoration: line-through;
+    margin-right: 5px;
+    display: inline-block;
+    opacity: 0.6;
+}
+@media only screen and (max-width:990px){
+    .product-grid{ margin-bottom: 40px; }
+}
+</style>
+
+
+
+
+
+
+<h1><%= message %></h1>
+<h2><%= error.status %></h2>
+<pre><%= error.stack %></pre>

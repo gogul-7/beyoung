@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <!-- <link rel='stylesheet' href='/stylesheets/panel.css' /> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"> </script>
+</head>
+
+<body>
+    <style>
+  
+        h2,
+        h5,
+        .h2,
+        .h5 {
+          font-family: inherit;
+          font-weight: 600;
+          line-height: 1.5;
+          margin-bottom: .5rem;
+          color: #32325d;
+        }
+        
+        h5,
+        .h5 {
+          font-size: .8125rem;
+        }
+        
+        @media (min-width: 992px) {
+          
+          .col-lg-6 {
+            max-width: 50%;
+            flex: 0 0 50%;
+          }
+        }
+        
+        @media (min-width: 1200px) {
+          
+          .col-xl-3 {
+            max-width: 25%;
+            flex: 0 0 25%;
+          }
+          
+          .col-xl-6 {
+            max-width: 50%;
+            flex: 0 0 50%;
+          }
+        }
+        
+        
+        .bg-danger {
+          background-color: #f5365c !important;
+        }
+        
+        
+        
+        @media (min-width: 1200px) {
+          
+          .justify-content-xl-between {
+            justify-content: space-between !important;
+          }
+        }
+        
+        
+        .pt-5 {
+          padding-top: 3rem !important;
+        }
+        
+        .pb-8 {
+          padding-bottom: 8rem !important;
+        }
+        
+        @media (min-width: 768px) {
+          
+          .pt-md-8 {
+            padding-top: 8rem !important;
+          }
+        }
+        
+        @media (min-width: 1200px) {
+          
+          .mb-xl-0 {
+            margin-bottom: 0 !important;
+          }
+        }
+        
+        
+        
+        
+        .font-weight-bold {
+          font-weight: 600 !important;
+        }
+        
+        
+        a.text-success:hover,
+        a.text-success:focus {
+          color: #24a46d !important;
+        }
+        
+        .text-warning {
+          color: #fb6340 !important;
+        }
+        
+        a.text-warning:hover,
+        a.text-warning:focus {
+          color: #fa3a0e !important;
+        }
+        
+        .text-danger {
+          color: #f5365c !important;
+        }
+        
+        a.text-danger:hover,
+        a.text-danger:focus {
+          color: #ec0c38 !important;
+        }
+        
+        .text-white {
+          color: #fff !important;
+        }
+        
+        a.text-white:hover,
+        a.text-white:focus {
+          color: #e6e6e6 !important;
+        }
+        
+        .text-muted {
+          color: #8898aa !important;
+        }
+        
+        @media print {
+          *,
+          *::before,
+          *::after {
+            box-shadow: none !important;
+            text-shadow: none !important;
+          }
+          
+          a:not(.btn) {
+            text-decoration: underline;
+          }
+          
+          p,
+          h2 {
+            orphans: 3;
+            widows: 3;
+          }
+          
+          h2 {
+            page-break-after: avoid;
+          }
+          
+          @page {
+            size: a3;
+          }
+          
+          body {
+            min-width: 992px !important;
+          }
+        }
+        
+        figcaption,
+        main {
+          display: block;
+        }
+        
+        main {
+          overflow: hidden;
+        }
+        
+        .bg-yellow {
+          background-color: #ffd600 !important;
+        }
+        
+        
+        
+        
+        
+        
+        .icon {
+          width: 3rem;
+          height: 3rem;
+        }
+        
+        .icon i {
+          font-size: 2.25rem;
+        }
+        
+        .icon-shape {
+          display: inline-flex;
+          padding: 12px;
+          text-align: center;
+          border-radius: 50%;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        
+        
+        </style>
+    <%- include('../partials/admin-navbar')%>
+        <%- include('../partials/sidebar')%>
+            <div class="content">
+
+                <%- include('../flashes/flash')%>
+                <div class="d-flex justify-content-end">
+<a href="/admin/salesReport" class="btn btn-sm btn-primary mt-5">SalesReport</a>
+                </div>
+           
+                    <!-- <link rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+                        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+                    <div class="col-md-10 offset-md-1">
+                        <div class="row ">
+                            <div class="col-xl-3 col-lg-6">
+                                <div class="card l-bg-cherry">
+                                    <div class="card-statistic-3 p-4">
+                                        <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h5 class="card-title mb-0">New Orders</h5>
+                                        </div>
+                                        <div class="row align-items-center mb-2 d-flex">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center mb-0">
+                                                    3,243
+                                                </h2>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span>12.5% <i class="fa fa-arrow-up"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                            <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                                style="width: 25%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6">
+                                <div class="card l-bg-blue-dark">
+                                    <div class="card-statistic-3 p-4">
+                                        <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+                                        <div class="mb-4">
+                                            <h5 class="card-title mb-0">Customers</h5>
+                                        </div>
+                                        <div class="row align-items-center mb-2 d-flex">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center mb-0">
+                                                    
+                                                </h2>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span>9.23% <i class="fa fa-arrow-up"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                            <div class="progress-bar l-bg-green" role="progressbar" data-width="25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                                style="width: 25%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6">
+                                <div class="card l-bg-green-dark">
+                                    <div class="card-statistic-3 p-4">
+                                        <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
+                                        <div class="mb-4">
+                                            <h5 class="card-title mb-0">Ticket Resolved</h5>
+                                        </div>
+                                        <div class="row align-items-center mb-2 d-flex">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center mb-0">
+                                                    578
+                                                </h2>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span>10% <i class="fa fa-arrow-up"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                            <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                                style="width: 25%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-6">
+                                <div class="card l-bg-orange-dark">
+                                    <div class="card-statistic-3 p-4">
+                                        <div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i></div>
+                                        <div class="mb-4">
+                                            <h5 class="card-title mb-0">Revenue Today</h5>
+                                        </div>
+                                        <div class="row align-items-center mb-2 d-flex">
+                                            <div class="col-8">
+                                                <h2 class="d-flex align-items-center mb-0">
+                                                    $11.61k
+                                                </h2>
+                                            </div>
+                                            <div class="col-4 text-right">
+                                                <span>2.5% <i class="fa fa-arrow-up"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                                            <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                                style="width: 25%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="main-content">
+                        <div class="header bg-gradient-primary pb-8 pt-3 pt-md-5">
+                          <div class="container-fluid">
+                           
+                            <div class="header-body">
+                              <div class="row">
+                                <div class="col-xl-3 col-lg-6">
+                                  <div class="card card-stats mb-4 mb-xl-0">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col">
+                                          <h5 class="card-title text-uppercase text-muted mb-0">Orders</h5>
+                                          <span class="h2 font-weight-bold mb-0"><%-orders.length%></span>
+                                        </div>
+                                        <div class="col-auto">
+                                          <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                            <i class="fas fa-chart-bar"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                        <span class="text-nowrap">Since last month</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                  <div class="card card-stats mb-4 mb-xl-0">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col">
+                                          <h5 class="card-title text-uppercase text-muted mb-0">Products</h5>
+                                          <span class="h2 font-weight-bold mb-0"><%-products.length%></span>
+                                        </div>
+                                        <div class="col-auto">
+                                          <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                                            <i class="fas fa-chart-pie"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                                        <span class="text-nowrap">Since last week</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                  <div class="card card-stats mb-4 mb-xl-0">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col">
+                                          <h5 class="card-title text-uppercase text-muted mb-0">Users</h5>
+                                          <span class="h2 font-weight-bold mb-0"><%-users.length%></span>
+                                        </div>
+                                        <div class="col-auto">
+                                          <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                            <i class="fas fa-users"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                                        <span class="text-nowrap">Since yesterday</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                  <div class="card card-stats mb-4 mb-xl-0">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col">
+                                          <h5 class="card-title text-uppercase text-muted mb-0">Revenue</h5>
+                                          <span class="h2 font-weight-bold mb-0">&#8377; <%-total[0].total%></span>
+                                        </div>
+                                        <div class="col-auto">
+                                          <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                                            <i class="fas fa-percent"></i>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <p class="mt-3 mb-0 text-muted text-sm">
+                                        <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                                        <span class="text-nowrap">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <section class="bg-white py-5 mx-3">
+                <div class="row">
+                    <div class="" style="width: 50%;">
+                        <canvas id="bar-chart"></canvas>
+                    </div>
+                    <div class="col-lg-5" style="width: 50%;">
+                        <canvas id="circle-chart"
+                            style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-5" style="width: 60%;">
+                    <canvas id="finalchart"
+                        style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+                </div>
+            </section>
+        </div>
+        
+
+            <script>
+                let monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                let monthlyProfit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                let weekly = [0, 0, 0, 0, 0, 0, 0]
+                let weekName = ["Sunday", "Monday", "Tuesday", "WednesDay", "Thursday", "Friday", "Saturday"]
+                let paymethod = ["Paypal", "Razorpay", "Cash on Delivery"]
+                let payamount = [0, 0, 0]
+                let barChart = document.getElementById("bar-chart").getContext('2d')
+                let circleChart = document.getElementById("circle-chart").getContext('2d')
+                let finalchart = document.getElementById("finalchart").getContext('2d')
+                document.addEventListener('DOMContentLoaded', () => {
+                    fetch('/admin/getChartData',
+                        {
+                            method: 'get',
+                            credentials: 'include',
+                            headers: { 'Content-Type': 'application/json' }
+                        }).then(res => res.json()).then(res => {
+                            let { data, weeklyReport } = res;
+                            for (i = 0; i < data.length; ++i) {
+                                switch (data[i].month) {
+                                    case 1:
+                                        monthlyProfit[0] = data[i].total
+                                        break;
+                                    case 2:
+                                        monthlyProfit[1] = data[i].total
+                                        break;
+                                    case 3:
+                                        monthlyProfit[2] = data[i].total
+                                        break;
+                                    case 4:
+                                        monthlyProfit[3] = data[i].total
+                                        break;
+                                    case 5:
+                                        monthlyProfit[4] = data[i].total
+                                        break;
+                                    case 6:
+                                        monthlyProfit[5] = data[i].total
+                                        break;
+                                    case 7:
+                                        monthlyProfit[6] = data[i].total
+                                        break;
+                                    case 8:
+                                        monthlyProfit[7] = data[i].total
+                                        break;
+                                    case 9:
+                                        monthlyProfit[8] = data[i].total
+                                        break;
+                                    case 10:
+                                        monthlyProfit[9] = data[i].total
+                                        break;
+                                    case 11:
+                                        monthlyProfit[10] = data[i].total
+                                        break;
+                                    case 12:
+                                        monthlyProfit[11] = data[i].total
+                                        break;
+                                }
+                            }
+                            console.log(monthlyProfit)
+                            const months = monthName;
+                            const data1 = {
+                                labels: months,
+                                datasets: [{
+                                    label: 'Monthly sales',
+                                    backgroundColor: "blue",
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: monthlyProfit,
+                                }]
+                            };
+                            const monthlyconfig = {
+                                type: 'bar',
+                                data: data1,
+                                options: {}
+                            };
+                            let chart1 = new Chart(barChart, monthlyconfig)
+                            for (i = 0; i < weeklyReport.length; ++i) {
+                                switch (weeklyReport[i].date) {
+                                    case 1:
+                                        weekly[0] = weeklyReport[i].total
+                                        break;
+                                    case 2:
+                                        weekly[1] = weeklyReport[i].total
+                                        break;
+                                    case 3:
+                                        weekly[2] = weeklyReport[i].total
+                                        break;
+                                    case 4:
+                                        weekly[3] = weeklyReport[i].total
+                                        break;
+                                    case 5:
+                                        weekly[4] = weeklyReport[i].total
+                                        break;
+                                    case 6:
+                                        weekly[5] = weeklyReport[i].total
+                                        break;
+                                    case 7: weekly[6] = weeklyReport[i].total
+                                        break;
+                                }
+                            }
+
+
+                            //weekly sales
+                            const labels = weekName;
+                            const data2 = {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Weekly sales',
+                                    backgroundColor: 'red',
+                                    borderColor: 'red',
+                                    data: weekly,
+                                }]
+                            };
+                            const config = {
+                                type: 'line',
+                                data: data2,
+                                options: {}
+                            };
+                            let chart2 = new Chart(circleChart, config)
+
+
+
+                            {
+                                {
+                                    // for (i = 0; i < weeklyReport.length; ++i) {
+                                    //     switch (weeklyReport[i].method) {
+                                    //         case 1:
+                                    //             payamount[0] = weeklyReport[i].total
+                                    //             break;
+                                    //         case 2:
+                                    //             payamount[1] = weeklyReport[i].total
+                                    //             break;
+                                    //         case 3:
+                                    //             payamount[2] = weeklyReport[i].total
+                                    //             break;
+                                    //     }
+                                    // }
+                                    // const paymentmethod = paymethod;
+                                    // const data3 = {
+                                    //     labels: paymentmethod,
+                                    //     datasets: [{
+                                    //         abel: 'Payment Methods',
+                                    //         backgroundColor: "green",
+                                    //         borderColor: 'rgb(255, 99, 132)',
+                                    //         data: payamount,
+                                    //     }]
+                                    // };
+                                    // const config = {
+                                    //     type: 'line',
+                                    //     data: data3,
+                                    //     options: {}
+                                    // };
+                                    // let chart3 = new Chart(finalchart, config)
+                                }
+                            }
+                        })
+                })
+
+
+            </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script
+    src="https://www.paypal.com/sdk/js?client-id=AbItc1rCeWExJ8b4DkA9V3qZQ2nNVc4R-9MW1hzOicUAxU3-8IO0-vJFcA-zbJ_qwGyG70iklw59Kpyc&currency=USD"></script>
+ 
+    <!-- <link rel='stylesheet' href='../stylesheets/product.css' /> -->
+<style>
+    .clr {
+        display: none;
+    }
+
+    .disbtn {
+        display: block;
+    }
+</style>
+</head>
+
+<body>
+    
+    <%- include('../partials/navbar')%>
+
+            <section class="h-100 h-custom" style="background-color: #eee;">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12">
+                            <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                                <div class="card-body p-0">
+                                    <div class="row g-0">
+                                        <div class="col-lg-8">
+                                            <div class="p-5">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h6 class="fw-bold mb-0 text-primary">LOGIN</h6>
+
+                                                    <i class="fa-solid fa-check fs-3" style="color: #0008f0"></i>
+
+                                                </div>
+                                                <hr class="my-4">
+                                                <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                    <div class="col-md-10">
+                                                        <b>
+                                                            <%-userdetails.fullname%>
+                                                        </b> &nbsp;+91<%-userdetails.phoneno%>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        
+                                                        <button class="btn-sm btn btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#staticBackdrop">Change</button>
+                                                    </div>
+
+                                                </div>
+                                                <%if(guest){%>
+                                                    <form action="/placeOrder" method="post" id="guestForm">
+
+                                                        <%}else{%>
+                                                            <form action="/placeOrder" method="post" id="myForm">
+                                                                <%}%>
+                                                                    <hr class="my-4">
+
+                                                                    <div
+                                                                        class="d-flex justify-content-between align-items-center">
+                                                                        <h6 class="fw-bold mb-0 text-primary">DELIVERY
+                                                                            ADDRESS</h6>
+                                                                        <i class="fa-solid fa-check fs-3"
+                                                                            style="color: #0008f0"></i>
+
+                                                                    </div>
+
+                                                                    <%if(userdetails.address.length>0){%>
+
+
+                                                                        <%for(var i=address.length-1;i>=0;i--){%>
+
+                                                                            <hr>
+
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio" name="address"
+                                                                                    id="<%-address[i]._id%>"
+                                                                                    value="<%-address[i]._id%>"
+                                                                                    <%if(i==(address.length-1)){%>
+                                                                                checked
+                                                                                <%}%>
+                                                                                    >
+                                                                                    <label class="form-check-label"
+                                                                                        for="<%-address[i]._id%>">
+                                                                                        <div class="row">
+                                                                                            <div class="col-sm-12">
+
+                                                                                                <b>
+                                                                                                    <%-address[i].fullname%>
+                                                                                                        &nbsp;
+                                                                                                        <%-address[i].phoneno%>
+                                                                                                </b> <span
+                                                                                                    class="badge text-muted"
+                                                                                                    style="background-color: #d0d0d0">
+                                                                                                    <%-address[i].addresstype%>
+                                                                                                </span> <br>
+                                                                                                <%-address[i].address_line%>
+                                                                                                    ,
+                                                                                                    <%-address[i].locality%>
+                                                                                                        ,
+                                                                                                        <%-address[i].city_district_town%>
+                                                                                                            ,
+                                                                                                            <%-address[i].state%>
+                                                                                                                -
+                                                                                                                <%-address[i].pincode%>
+
+
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </label>
+                                                                            </div>
+
+                                                                            <%}%>
+                                                                                <hr>
+                                                                               
+                                                                                 
+                                                                                <div class="d-flex justify-content-end">
+                                                                                    <a 
+                                                                                        class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                                                        Add a New Address
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="collapse" id="collapseExample">
+                                                                                    <div class="card card-body">
+                                                                                        
+                                                                                      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                                                                    </div>
+                                                                                  </div>
+                                                                                <%}else{%>
+                                                                                    <hr>
+                                                                                    <div
+                                                                                        class="d-flex justify-content-between">
+                                                                                        <div class="form-check">
+                                                                                            <input
+                                                                                                class="form-check-input"
+                                                                                                type="radio"
+                                                                                                name="address"
+                                                                                                id="no-address"
+                                                                                                value="no-address"
+                                                                                                checked>
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="no-address">
+                                                                                                No saved address
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <span id="hai"></span>
+
+                                                                                        <div>
+                                                                                            <a href="/userprofile/addaddress"
+                                                                                                class="btn btn-sm btn-primary">
+                                                                                                Add Address
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <%}%>
+                                                                                    <hr class="my-4">
+
+                                                                                    <div
+                                                                                        class="d-flex justify-content-between align-items-center ">
+                                                                                        <h6 class="fw-bold mb-0 text-primary">ORDER
+                                                                                            SUMMARY</h6>
+                
+                
+                                                                                        <i class="fa-solid fa-check fs-3"
+                                                                                            style="color: #0008f0"></i>
+                
+                                                                                    </div>
+                                                                                    <hr>
+                                                                                    <%if(unavailable.length>0){%>
+                                                                                        
+                                                                                       
+                                                                                        <div class="bg-light mb-2 p-2">
+
+                                                                                        <div class="text-danger">
+The following items are Not available
+                                                                                        </div>
+                                                                                        
+                                                                        <%for(var i=unavailable.length-1;i>=0;i--){%>
+
+
+    
+                                                                            <i class="fa-duotone fa-chevron-right"></i>
+        <%-unavailable[i].name%> <br>
+    
+<%}%>
+
+
+</div>
+<%if(response.length>0){%>
+
+<p class="fw-bold">
+    You can continue to place order with following available items.</p>
+<%}%>
+
+    <%}%>   
+
+    <%if(response.length>0){%>
+
+    <%for(var i=0;i< response.length ;i++){%>
+
+
+        <div class="p-2 row mb-4 d-flex justify-content-between align-items-center">
+          
+
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                  <img
+                    src="<%-response[i].product.images[0].url%>"
+                    class="img-fluid rounded-3" alt="Cotton T-shirt" style="width: 100px;">
+      
+  </div>
+                <div class="col-md-5 col-lg-4 col-xl-5">
+                  <h6 class="text-muted"><%-response[i].product.categoryname%></h6>
+                  <h6 class="text-danger brand-name "><%-response[i].product.brand%></h6>
+
+          <h6 class="text-black mb-0 product-name"><%-response[i].product.productname%></h6>
+          <h6 class="mb-0">&#8377;<%-response[i].product.actualprice%> </h6>
+
+
+                </div>
+                
+                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                 <span> <h6 class="mb-0">Qty : <%-response[i].quantity%></h6></span>
+                </div>
+              
+                <div class="col-md-2 col-lg-2 col-xl-2 text-end">
+                  <h6 class="mb-0">&#8377;<%-(response[i].product.actualprice)*response[i].quantity%>/- </h6>
+                </div>
+                <!-- <div class="col-md-3 col-lg-2 col-xl-3 offset-lg-1">
+                  <h6 class="mb-0">Order Placed on </h6>
+                </div>  -->
+        </div>
+      
+        <%}%>
+       
+                                                                                           
+
+                                                                                    
+                                                                                        <hr class="my-4">
+
+                                                                                        <div
+                                                                                            class="d-flex justify-content-between align-items-center">
+                                                                                            <h6
+                                                                                                class="fw-bold mb-0 text-primary">
+                                                                                                PAYMENT METHOD
+                                                                                            </h6>
+
+                                                                                            <i class="fa-solid fa-check fs-3"
+                                                                                                style="color: #0008f0"></i>
+
+                                                                                        </div>
+                                                                                        <hr>
+                                                                                        <%if(userdetails.wallet>total.totalAmount){%>
+                                                                                            <div class="form-check">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="radio"
+                                                                                                    name="payment_mode"
+                                                                                                    id="wallet"
+                                                                                                    value="wallet"  onclick="displayCheckout()">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="wallet">
+                                                                                                    Wallet
+                                                                                                </label>
+    
+                                                                                            </div>
+                                                                                           
+
+                                                                                          <%}%> 
+                                                          
+
+                                                                                        <div class="form-check">
+                                                                                            <input
+                                                                                                class="form-check-input"
+                                                                                                type="radio"
+                                                                                                name="payment_mode"
+                                                                                                id="no-address"
+                                                                                                value="COD"  onclick="displayCheckout()">
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="no-address">
+                                                                                                Cash On Delivery
+                                                                                            </label>
+
+                                                                                        </div>
+                                                                                        <div class="form-check">
+                                                                                            <input
+                                                                                                class="form-check-input"
+                                                                                                type="radio"
+                                                                                                name="payment_mode"
+                                                                                                id="no-addres"
+                                                                                                value="Razorpay" onclick="displayCheckout()">
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="no-addres">
+                                                                                                Razorpay
+                                                                                            </label>
+
+                                                                                        </div>
+                                                                                        <div class="form-check">
+                                                                                            <input
+                                                                                                class="form-check-input"
+                                                                                                type="radio"
+                                                                                                name="payment_mode"
+                                                                                                id="no-addre"
+                                                                                                value="Paypal" onclick="displayPaypal()">
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="no-addre">
+                                                                                                Paypal
+                                                                                            </label>
+
+                                                                                        </div>
+
+                                                                                        <hr class="">
+
+                                                                                        <div class="pt-5">
+                                                                                            <h6 class="mb-0"><a href="/"
+                                                                                                    class="text-body"><i
+                                                                                                        class="fas fa-long-arrow-alt-left me-2"></i>Back
+                                                                                                    to shop</a>
+                                                                                            </h6>
+                                                                                        </div>
+
+                                                                                       
+                                            </div>
+                                            <%}%>
+
+                                        </div>
+                                        
+    <%if(response.length>0){%>
+                                         
+                                        <div class="col-lg-4 bg-grey">
+                                            <div class="p-5">
+                                                <h3 class="fw-bold mb-5 mt-2 pt-1">Price Details</h3>
+                                                <hr class="my-4">
+
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <h6 class="text-uppercase">Price(<%-response.length%> items)</h6>
+                                                    <h6>&#8377;<span id="subtotal">
+                                                            <%-total.subTotal%>
+                                                        </span></h>
+                                                </div>
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <h6 class="text-uppercase">Discount : </h6>
+                                                    <h6>&#8377;<span id="discount">
+                                                            <%-total.discount%>
+                                                        </span></h6>
+                                                </div>
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <h6 class="text-uppercase">Delivery Charges : </h6>
+                                                    <h6>FREE</h6>
+                                                </div>
+
+
+
+
+
+
+                                                <div class="card mb-4">
+                                                    <div class="card-body ">
+                                                      
+                                          
+                                          
+                                                      <div class="card mb-4" id="available-coupons">
+                                                        <div class="card-body  d-flex flex-row align-items-center">
+                                                          <div class="form-outline flex-fill ">
+                                                            <h4 class="text-dark text-start fw-light m-0 fs-5">Available Coupons</h4>
+                                                          </div>
+                                                          <a class="btn btn-outline-warning btn-sm" onclick="displayDrop()"><i
+                                                              class="fa-solid fa-angle-down"></i></a>
+                                                        </div>
+                                                      </div>
+                                                      <div class="card mb-4 d-none" id="coupons">
+                                                        <ul class="list-group">
+                                                          <%if(coupons.length>0){%>
+                                                            <%for(let item of coupons){%>
+                                                          <li class="list-group-item d-flex justify-content-between text-success fs-6">
+                                                            Upto ₹<%-item.amount_off%>/- off on <br>purchases above <%-item.minimum_purchase%>
+                                                            <span> <span class="flex-end text-dark fw-bold"
+                                                                id="<%-item.coupon_code%>"><%-item.coupon_code%></span><a
+                                                                onclick="CopyToClipboard('<%-item.coupon_code%>');return false;" class="btn px-2 ms-2"><i
+                                                                  class="fa-regular fa-copy fa-lg"></i></a></span>
+                                                          </li>
+                                                          <%}%>
+                                                          <%}else{%>
+                                                          <li class="list-group-item text-center">
+                                                            <span>Currently there is no available coupon</span>
+                                                          </li>
+                                                          <%}%>
+                                                        </ul>
+                                                      </div>
+                                                      
+                                                     
+                                                      <%if(couponApplied){%>
+                                                        <p class="mb-2 mt-3"><strong>Coupon Applied </strong></p>
+                                                      <div class="mt-3 text-center"><%- include('../flashes/flash')%></div>
+                                                      
+                                                      <div class="input-group mb-3">
+                                                      <input type="text" name="couponCode" value="<%-couponApplied.coupon_code%>" class="form-control" readonly>
+                                                      <a class="btn btn-primary" onclick="removeCoupon('<%-user._id%>')" id="apply-coupon">Remove</a>
+                                                      </div>
+                                                        
+                                                      <%}else{%>
+                                                      <p class="mb-2 mt-3"><strong>Have any coupon?</strong></p>
+                                                      <div class="mt-3 text-center"><%- include('../flashes/flash')%></div>
+                                                      
+                                                      <div class="input-group mb-3">
+                                                      <input type="text" name="couponCode" class="form-control" placeholder="Coupon Code" aria-label="coupon code" aria-describedby="button-addon2">
+                                                      <a class="btn btn-primary" onclick="addCoupon('<%-user._id%>')" id="apply-coupon">Apply</a>
+                                                      </div>
+                                                      <%}%>
+                                                       
+                                                      </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                                <!--   
+                    <h5 class="text-uppercase mb-3">Shipping</h5>
+  
+                    <div class="mb-4 pb-2">
+                      <select class="select">
+                        <option value="1">Standard-Delivery- €5.00</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                      </select>
+                    </div> -->
+
+                                                <!-- <h5 class="text-uppercase mb-3">Give code</h5>
+  
+                    <div class="mb-5">
+                      <div class="form-outline">
+                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea2">Enter your code</label>
+                      </div>
+                    </div> -->
+
+                                                <hr class="my-4">
+
+                                                <div class="d-flex justify-content-between mb-5">
+                                                    <h5 class="text-uppercase">Total price :</h5>
+                                                    <h5> &#8377;<span id="totalAmount">
+                                                            <%-total.totalAmount%>
+                                                        </span></h5>
+                                                </div>
+                                                <p>You will save &#8377;<span id="discount">
+                                                        <%-total.discount%>
+                                                    </span> in this order</p>
+
+
+                                                <div class="d-flex justify-content-center">
+
+<div class="clr mt-4" id="paypal"></div>
+            <div class="clr" id="checkout-button">
+            <button id='placeOrder' type="submit" class="btn btn-dark  btn-sm btn-block">
+           Place Order 
+            </button>
+</div>
+</form>
+                                            </div>
+                                
+
+                                        </div>
+        <%}%>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="staticBackdropLabel">Select Delivery Address</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body py-2 px-2">
+                            <form action="">
+                                <% for(var i=0; i< address.length;i++) {%>
+                                    <hr>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-4 d-flex">
+                                            <%-i+1%>&nbsp;.&nbsp;
+                                                <input class="form-check-input" type="radio" value=""
+                                                    id="exampleRadios1">
+
+                                                <p class="mb-0 ">
+                                                    &nbsp;
+                                                    (<b>
+                                                        <%-address[i].addresstype%>
+                                                    </b>)
+                                                </p>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <!-- <label class="form-check-label" for="defaultCheck1"> -->
+                                            <p class=" mb-0"><b>
+                                                    <%-address[i].fullname%>&nbsp; <%-address[i].phoneno%>
+                                                </b><br>
+                                                <%-address[i].address_line%>,<%-address[i].locality%>,
+                                                        <%-address[i].city_district_town%>,<%-address[i].state%>-
+                                                                <%-address[i].pincode%>
+                                            </p>
+                                            <!-- </label> -->
+                                        </div>
+
+                                    </div>
+
+
+                                    <% } %>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+            <script>
+                $('#myForm').submit((e) => {
+                    e.preventDefault()
+                    $.ajax({
+                        url: '/placeOrder',
+                        method: 'post',
+                        data: $('#myForm').serialize(),
+                        success: (response) => {
+                            if (response.status) {
+                                console.log(response)
+                                if (response.codeSuccess)
+                                    location.href = '/orderSuccess'
+                                else
+                                    razorpayPayment(response)
+                            }
+                            else {
+                                document.getElementById('hai').innerHTML = "<div class='alert alert-danger'>Provide Delivery Address to continue</div>"
+                            }
+                        }
+                    })
+                })
+                $('#guestForm').submit((e) => {
+                    e.preventDefault()
+                    $.ajax({
+                        url: '/guestPlaceOrder',
+                        method: 'post',
+                        data: $('#guestForm').serialize(),
+                        success: (response) => {
+                            if (response.status) {
+                                if (response.codeSuccess){
+                                    location.href = '/orderSuccess'
+                                }
+                                else
+                                    razorpayPayment(response)
+                            }
+                            else {
+                                document.getElementById('hai').innerHTML = "<div class='alert alert-danger'>Provide Delivery Address to continue</div>"
+
+
+                            }
+                        }
+                    })
+                })
+
+
+
+
+                function razorpayPayment(order) {
+
+                    var options = {
+                        "key": "rzp_test_uEQM9Ijif03z6w", // Enter the Key ID generated from the Dashboard
+                        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        "currency": "INR",
+                        "name": "BOOTIE",
+                        "description": "Test Transaction",
+                        "image": "https://example.com/your_logo",
+                        "order_id": order.id, //This is a sample Order ID. Pass the id obtained in the response of Step 1
+                        "handler": function (response) {
+                            // alert(response.razorpay_payment_id);
+                            // alert(response.razorpay_order_id);
+                            // alert(response.razorpay_signature)
+
+                            verifyPayment(response, order)
+                        },
+                        "prefill": {
+                            "name": "Gaurav Kumar",
+                            "email": "gaurav.kumar@example.com",
+                            "contact": "9999999999"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#3399cc"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    // rzp1.on('payment.failed', function (response){
+                    //         alert(response.error.code);
+                    //         alert(response.error.description);
+                    //         alert(response.error.source);
+                    //         alert(response.error.step);
+                    //         alert(response.error.reason);
+                    //         alert(response.error.metadata.order_id);
+                    //         alert(response.error.metadata.payment_id);
+                    // });
+                    // document.getElementById('rzp-button1').onclick = function(e){
+                    rzp1.open();
+                    //     e.preventDefault();
+                    // }
+
+                }
+
+                function verifyPayment(payment, order) {
+
+                    $.ajax({
+                        url: '/verify-payment',
+                        data: {
+                            payment,
+                            order
+                        },
+                        method: 'post',
+                        success: (response) => {
+                            if (response.status) {
+                                sessionStorage.setItem("Razorpay", "true");
+                                location.href = '/orderSuccess'
+                            }
+                            else {
+                                // location.href = '/orderSuccess'
+
+                            }
+                        }
+                    })
+                }
+                paypal.Buttons({
+        // Sets up the transaction when a payment button is clicked
+        createOrder: (data, actions) => {
+            console.log('paypal')
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: document.getElementById('totalAmount').innerText // Can also reference a variable or function
+                    }
+                }]
+            });
+        },
+        // Finalize the transaction after payer approval
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(function (orderData) {
+                // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                // alert(Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details);
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+                $("#placeOrder").trigger("click")
+            });
+        }
+    }).render('#paypal');
+
+    function displayCheckout() {
+
+        let list1 = document.getElementById("checkout-button").classList
+        let list2 = document.getElementById("paypal").classList;
+        list1.add('disbtn')
+        list2.remove('disbtn')
+    }
+
+    function displayPaypal() {
+        let list1 = document.getElementById("checkout-button").classList
+        let list2 = document.getElementById("paypal").classList;
+        list1.remove('disbtn')
+        list2.add('disbtn')
+
+    }
+
+
+
+
+
+
+
+
+
+
+    function CopyToClipboard(id) {
+  var r = document.createRange();
+  r.selectNode(document.getElementById(id));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(r);
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+}
+
+function displayDrop() {
+    var element = document.getElementById("coupons");
+    var parent = document.getElementById("available-coupons");
+    element.classList.toggle("d-none");
+    parent.classList.toggle("mb-4");
+  }
+
+  function addCoupon(userId){
+  let couponCode = document.querySelector("input[name='couponCode']").value
+   let total = parseInt(document.getElementById("totalAmount").innerText)
+  if(couponCode==""){
+
+  }
+  else{
+   console.log(total)
+   $.ajax({
+     url:'/apply-coupon',
+     data:{
+       couponCode,
+       total,
+       userId
+     },
+     method:'post',
+     success:(response)=>{
+      
+      location.reload()
+
+     }
+
+    })
+  }
+  }
+
+  function removeCoupon() {
+    
+  $.ajax({
+    url: '/remove-coupon',
+    method: 'get',
+    success: (response) => {
+      
+      location.reload()
+    }
+  })
+}
+</script>
+</body>
+<%- include('../partials/footer')%>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="../stylesheets/cart.css" />
+  </head>
+  <body style="background-color: #eee">
+    <%- include('../partials/navbar')%>
+    <section style="background-color: #eee">
+      <div class="container py-5">
+        <!-- <div class="row">
+          <div class="col">
+            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">User</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+              </ol>
+  
+            </nav>
+          </div>
+        </div> -->
+        <%- include('../flashes/flash')%>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+                <%if(userdetails.dp.url){%>
+                  <img src="<%-userdetails.dp.url%>" alt="avatar"
+                  class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                  <%}else{%>
+                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                  <%}%> 
+                <h5 class="my-3 text-uppercase"><%-userdetails.fullname%></h5>
+                <!-- <p class="text-muted mb-1">Full Stack Developer</p>
+                <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                <div class="d-flex justify-content-center mb-2">
+                  <button type="button" class="btn btn-primary">Follow</button>
+                  <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                </div> -->
+              </div>
+            </div>
+            <div class="card mb-4 mb-lg-0">
+              <div class="card-body p-0">
+                <ul class="list-group list-group-flush rounded-3">
+                  <li
+                    class="list-group-item d-flex justify-content-center align-items-center p-3"
+                  >
+                    <i class="fa-regular fa-calendar" style="color: #00ff11"></i
+                    >&nbsp;&nbsp;
+                    <p class="mb-0 fw-bold text-uppercase">My Orders</p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i
+                      class="fa-solid fa-greater-than"
+                      style="color: #007bff"
+                    ></i>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-center align-items-center p-3"
+                  >
+                    <i class="fa-solid fa-user" style="color: #0008f0"></i>
+                    &nbsp;&nbsp;
+                    <p class="mb-0 fw-bold">ACCOUNT SETTINGS</p>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-center align-items-center p-3 "
+                  >
+                    <p class="mb-0">
+                      <a
+                        href="/userprofile"
+                        style="text-decoration: none"
+                        class="link-dark"
+                        >Profile Informations</a
+                      >
+                    </p>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-center align-items-center p-3"
+                  >
+                    <p class="mb-0">
+                      <a
+                        href="/userprofile/address"
+                        style="text-decoration: none"
+                        class="link-dark"
+                        >Manage Addresses</a
+                      >
+                    </p>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-center align-items-center p-3"
+                  >
+                    <p class="mb-0">
+                      <a
+                        href="/userprofile/password"
+                        style="text-decoration: none"
+                        class="link-dark"
+                        >Change Password</a
+                      >
+                    </p>
+                  </li>
+                  <li
+                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                >
+                  <i class="fa-solid fa-envelope" style="color: #0008f0"></i>
+                  &nbsp;&nbsp;
+                  <p class="mb-0 fw-bold">MY STUFF</p>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-center align-items-center p-3 bg-light"
+                >
+                  <p class="mb-0 text-primary">
+                   My Wishlist
+                  </p>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                >
+                  <p class="mb-0">
+                    <a
+                      href="/userprofile/myCoupons"
+                      style="text-decoration: none"
+                      class="link-dark"
+                      >My Coupons</a
+                    >
+                  </p>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                >
+                  <p class="mb-0">
+                    <a
+                      href="/userprofile/reviews"
+                      style="text-decoration: none"
+                      class="link-dark"
+                      >My Reviews & Ratings</a
+                    >
+                  </p>
+                </li>
+                  <li
+                    class="list-group-item d-flex justify-content-center align-items-center p-3"
+                  >
+                    <i
+                      class="fa-solid fa-arrow-right-from-bracket"
+                      style="color: #ff0000"
+                    ></i
+                    >&nbsp;
+                    <p class="mb-0 text-uppercase fw-bold">
+                      <a
+                        href="/logout"
+                        style="text-decoration: none"
+                        class="link-dark"
+                        >logout</a
+                      >
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card mb-0">
+              <div class="card-body">
+                <%if(users.wishlistItems.length>0){%>
+                <div class="p-2">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-0"
+                  >
+                    <h3 class="fw-bold mb-0 text-black">My Wishlist</h3>
+                    <h6 class="mb-0 text-muted">
+                      <%-users.wishlistItems.length%> items
+                    </h6>
+                  </div>
+                  <hr class="my-4" />
+                  <% for(var i = 0; i< users.wishlistItems.length;i++) {%>
+                  <div
+                    class="row mb-4 d-flex justify-content-between align-items-center"
+                  >
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <a href="/productview/<%-users.wishlistItems[i]._id%>"
+                        ><img
+                          src="<%-users.wishlistItems[i].images[0].url%>"
+                          class="img-fluid rounded-3"
+                          alt="Cotton T-shirt"
+                      /></a>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-6">
+                      <h6 class="text-muted">
+                        <%-users.wishlistItems[i].categoryname%>
+                      </h6>
+                      <h6 class="text-danger mb-2">
+                        <%-users.wishlistItems[i].brand%>
+                      </h6>
+
+                      <h6 class="text-black mb-0">
+                        <%-users.wishlistItems[i].productname%>
+                      </h6>
+                    </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h6 class="mb-0">
+                        &#8377;<%-users.wishlistItems[i].price%>
+                      </h6>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a
+                        onclick="deleteProduct('<%-users.wishlistItems[i]._id%>')"
+                        class="text-muted"
+                        ><i class="fa-solid fa-trash"></i
+                      ></a>
+                    </div>
+                  </div>
+
+                  <% } %> <%}else{%>
+                  <div class="d-flex justify-content-center my-5 col-lg-12">
+                    <div class="card text-center" style="width: 18rem">
+                      <img
+                        src="/images/cartlogin.webp"
+                        class="card-img-top"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Empty Wishlist</h5>
+                        <p class="card-text">
+                          You have no items in your wishlist. Start adding!
+                        </p>
+                        <a href="/" class="btn btn-primary">Back To Shop</a>
+                      </div>
+                    </div>
+                  </div>
+                  <%}%>
+
+                  <!-- <h5 class="text-uppercase mb-3">Give code</h5>
+
+                  <div class="mb-5">
+                    <div class="form-outline">
+                      <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                      <label class="form-label" for="form3Examplea2">Enter your code</label>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+    </section>
+    <%- include('../partials/footer')%>
+  </body>
+  <script>
+    function deleteProduct(productId) {
+      $.ajax({
+        url: "/removeFromWishlist",
+        data: {
+          id: productId,
+        },
+        method: "patch",
+        success: (response) => {
+          sessionStorage.setItem("removedFromWishlist", "true");
+          document.location.reload();
+        },
+      });
+    }
+
+    function myFunction(msg) {
+      alertify.success(msg);
+    }
+    window.onload = function () {
+      var removedFromWishlist = sessionStorage.getItem("removedFromWishlist");
+      if (removedFromWishlist) {
+        sessionStorage.removeItem("removedFromWishlist");
+        myFunction("Removed from Your Wishlist");
+      }
+    };
+  </script>
+</html>

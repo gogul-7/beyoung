@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers</title>
+</head>
+<body>
+  <%- include('../partials/admin-navbar')%>
+  <%- include('../partials/sidebar')%>
+
+<!-- Page content -->
+
+<div class="content"> 
+  <!-- <div class="py-2 bg-dark"><h3 class="text-center text-white">List of Customers</h3></div> -->
+  <section >
+    <div class="col-md-10 offset-md-1">
+
+    <div class="container bg-white">
+      <table class="table table-striped" id="users">
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th scope="col">Fullname</th>
+
+            <th scope="col">Email</th>
+
+            <th scope="col">Block</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i< user.length;i++) {%>
+            <tr>  
+              <td>
+                <%-i+1 %>.
+              </td> 
+              <td>
+                <%-user[i].fullname%>
+              </td>
+              <td>
+                <%-user[i].email %>
+              </td>
+
+              <td><a href="admin/<%-user[i]._id%>"><button class="btn btn-dark ">View profile</button></a>
+                <% if(user[i].isblocked){ %>
+                  <a href="/admin/block/<%-user[i]._id%>"><button class="btn btn-primary">UnBlock</button></a>
+              <% } else{ %>  
+                <a href="/admin/block/<%-user[i]._id%>"><button class="btn btn-danger" style="width:106px">Block</button></a>
+              <% } %>              
+              </td>
+            </tr>
+            <% } %>
+
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </section> 
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script>
+  $(document).ready(function () {
+      $('#users').DataTable({
+          
+         
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excel',
+                  text: 'Excel',
+                  className: 'btn btn-default',
+                  exportOptions: {
+                      columns: ':not(.notExport)'
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  text: 'PDF',
+                  className: 'btn btn-default',
+                  exportOptions: {
+                      columns: ':not(.notExport)'
+                  }
+              }
+          ],
+          responsive: {
+              details: {
+                  display: $.fn.dataTable.Responsive.display.modal({
+                      header: function (row) {
+                          var data = row.data();
+                          return 'Details for ' + data[0] + ' ' + data[1];
+                      }
+                  }),
+                  renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                      tableClass: 'table'
+                  })
+              }
+          },
+      });
+  });
+
+</script>
+
+</body>
+
+</html>

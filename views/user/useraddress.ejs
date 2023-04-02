@@ -1,0 +1,230 @@
+<head>
+  <title>Manage Address</title>
+ </head> 
+ <%- include('../partials/navbar')%>
+  <!-- <h1>user profile</h1> -->
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <!-- <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">User</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Address Management</li>
+            </ol>
+          </nav>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <%if(userdetails.dp.url){%>
+                <img src="<%-userdetails.dp.url%>" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                <%}else{%>
+                  <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="avatar"
+                  class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                <%}%> 
+              <h5 class="my-3 text-uppercase">
+                <%-userdetails.fullname%>
+              </h5>
+              <!-- <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div> -->
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <i class="fa-regular fa-calendar" style="color: #00ff11;"></i>&nbsp;&nbsp;
+                  <p class="mb-0 fw-bold text-uppercase">My Orders </p>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                    class="fa-solid fa-greater-than" style="color: #007bff;"></i>
+                </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <i class="fa-solid fa-user" style="color: #0008f0;"></i></i> &nbsp;&nbsp;
+                  <p class="mb-0 fw-bold">ACCOUNT SETTINGS</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <p class="mb-0"><a href="/userprofile" style="text-decoration:none;" class="link-dark">Profile Informations</a></p>
+                </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3 bg-light">
+                  <p class="mb-0 text-primary"> Manage Addresses</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <p class="mb-0"><a href="/userprofile/password" style="text-decoration:none;" class="link-dark">Change Password</a></p>
+                </li>
+                <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <i class="fa-solid fa-envelope" style="color: #0008f0"></i>
+                &nbsp;&nbsp;
+                <p class="mb-0 fw-bold">MY STUFF</p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <p class="mb-0">
+                  <a
+                  href="/wishlist"
+                  style="text-decoration: none"
+                  class="link-dark"
+                  >My Wishlist</a
+                >
+                </p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <p class="mb-0">
+                  <a
+                    href="/userprofile/myCoupons"
+                    style="text-decoration: none"
+                    class="link-dark"
+                    >My Coupons</a
+                  >
+                </p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <p class="mb-0">
+                  <a
+                    href="/userprofile/reviews"
+                    style="text-decoration: none"
+                    class="link-dark"
+                    >My Reviews & Ratings</a
+                  >
+                </p>
+              </li>
+         
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff0000;"></i>&nbsp;
+                  <p class="mb-0 text-uppercase fw-bold"><a href="/logout" style="text-decoration:none;" class="link-dark">logout</a></p>
+
+                </li>
+               
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              
+              <%- include('../flashes/flash')%>
+
+                <div class="row d-flex justify-content-end">
+                  <div class="col-sm-3">
+                    <p class="mb-0"><a href="/userprofile/addaddress"><button class="btn btn-primary">Add a New Address
+                        </button></a></p>
+                  </div>
+
+                </div>
+
+                <% for(var i=0; i< userdetails.address.length;i++) {%>
+
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <span class="badge text-muted" style="background-color: #d0d0d0">
+                        <%-userdetails.address[i].addresstype%>
+                      </span> <br>
+                      <p class="mb-0 ">Address Line <%-i+1%> (<b>
+                            <%-userdetails.address[i].addresstype%>
+                          </b>)</p>
+                    </div>
+
+                    <div class="col-sm-9">
+                      <p class=" mb-0"><b>
+                          <%-userdetails.address[i].fullname%>&nbsp; <%-userdetails.address[i].phoneno%>
+                        </b><br>
+                        <%-userdetails.address[i].address_line%>,<%-userdetails.address[i].locality%>,
+                            <%-userdetails.address[i].city_district_town%>,<%-userdetails.address[i].state%>-
+                                <%-userdetails.address[i].pincode%>
+                      </p>
+                      <div class="d-flex  justify-content-end">
+
+                       
+                          <a href="/userprofile/editaddress/<%-userdetails.address[i]._id%>" class="btn"><i
+                              class="fa-solid fa-pen-to-square" style="color: #0162ebd6;"></i></a>
+                          <a class="btn"
+                            onclick="confirmation('<%-userdetails.address[i]._id%>')"><i
+                              class="fa-solid fa-trash" style="color: #ff0000d6;"></i></a>
+                      </div>
+
+                    </div>
+                  </div>
+                  <% } %>
+
+
+            </div>
+          </div>
+        </div>
+         </div>
+    </div>
+    </div>
+    </div>
+  </section>
+  <script>
+     function deleteAddress(addressId) {
+          $.ajax({
+            url: '/userprofile/deleteAddress',
+            data: {
+              address: addressId
+            },
+            method: 'post',
+            success: (response) => {
+              sessionStorage.setItem("deleteAddress", "true");
+                document.location.reload();       
+            }
+          })
+        }
+
+        function confirmation(addressId) {
+            Swal.fire({
+              title: 'Are you sure ?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteAddress(addressId)
+              }
+            })
+          }
+
+          function myFunction(msg) {
+            alertify.success(msg);
+          }
+          window.onload = function () {
+            var deleteAddress = sessionStorage.getItem("deleteAddress");
+            var addAddress = sessionStorage.getItem("addAddress");
+            var editAddress = sessionStorage.getItem("editAddress");        
+            if (deleteAddress) {
+              sessionStorage.removeItem("deleteAddress");
+              myFunction('Address Deleted');
+            }
+            if (addAddress) {
+              sessionStorage.removeItem("addAddress");
+              myFunction('New Address Added');
+            }
+            if (editAddress) {
+              sessionStorage.removeItem("editAddress");
+              myFunction('Address Edited Successfully');
+            }
+          
+          }
+          
+  </script>
+    <%- include('../partials/footer')%>

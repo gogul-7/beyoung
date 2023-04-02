@@ -1,0 +1,253 @@
+<style>
+    /* === BASE HEADING === */ 
+
+.twelve h1 {
+ position: relative;
+ padding: 0;
+ margin: 0;
+ font-family: "Raleway", sans-serif;
+ font-weight: 300;
+ font-size: 40px;
+ color: #080808;
+ -webkit-transition: all 0.4s ease 0s;
+ -o-transition: all 0.4s ease 0s;
+ transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+ font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+   background-color: #c50000;
+   content: '';
+   display: block;
+   height: 3px;
+   width: 75px;
+   margin-bottom: 5px;
+}
+.twelve h1:after {
+   background-color: #c50000;
+   content: '';
+   display: block;
+ position:absolute; right:0; bottom:0;
+   height: 3px;
+   width: 75px;
+   margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+ -moz-box-sizing: border-box;
+ -webkit-box-sizing: border-box;
+ box-sizing: border-box;
+}
+/* body {
+ background: #eee;
+} */
+.heading {
+ position: relative;
+ /* background: #f8f8f8; */
+ width: 90%;
+ max-width: 500px;
+ padding: 2em;
+ margin: 1.5em auto;
+ /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+ background-color: #c50000;
+}
+</style>
+<%- include('../partials/admin-navbar')%>
+<%- include('../partials/sidebar')%>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.min.css">
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+<div class="content">
+  <div class="mt-3 text-center"><%- include('../flashes/flash')%></div>
+  <div class="row">
+    
+   
+    
+    <div class="col-md-10 offset-md-1">
+      <!-- <h2 class="text-center text-dark fw-bold mt-4">coupons</h2> -->
+      <div class="twelve heading">
+    <h1>COUPONS</h1>
+    </div>
+      <div class="container-fluid ">
+        <div class="d-flex justify-content-end">
+          <a href="/admin/addCoupon" class="btn btn-secondary mb-3"
+            >Add Coupon</a
+          >
+        </div>
+        <table class="table table-hover table-striped" id="couponsDatatable">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Coupon Code</th>
+              <th scope="col">Minimum Purchase</th>
+              <th scope="col">Amount off</th>
+              
+              <th scope="col">Valid from</th>
+              <th scope="col">Valid till</th>
+              <th scope="col">Status</th>
+
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i = 0; i< coupons.length;i++) {%>
+            <tr>
+              <td><%-i+1 %>.</td>
+              <td><%-coupons[i].coupon_code %></td>
+              <td>&#8377; <%-coupons[i].minimum_purchase %></td>
+              <td>&#8377; <%-coupons[i].amount_off %></td>
+
+              <td><%-coupons[i].validfrom%></td>
+              <td><%-coupons[i].validtill %></td>
+              <td><%if(coupons[i].isExpired){%>
+                <button class="btn btn-white text-danger" style="pointer-events: none;"> EXPIRED </button>
+
+                  <%}else if(coupons[i].status){%>
+                    <a class=" btn btn-success text-white " onclick="disable('<%-coupons[i]._id%>')">Enabled</a>
+                  <%}else{%>
+                    <a class="btn btn-danger" onclick="enable('<%-coupons[i]._id%>')">Disabled</a>
+                  <%}%>
+              </td>
+
+<td>
+                <a
+                  class="btn btn-dark"
+                  href="/admin/editCoupon/<%- coupons[i]._id %>"
+                  ><i class="fa-solid fa-pen-to-square"></i
+                ></a>
+              </td>
+              <td>
+                
+                  <button class="btn btn-danger"  onclick="confirmation('<%- coupons[i]._id %>')" >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+</div>
+
+
+</div>
+<script>
+  $(document).ready(function () {
+      $('#couponsDatatable').DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              {
+                  extend: 'excel',
+                  text: 'Excel',
+                  className: 'btn btn-default',
+                  exportOptions: {
+                      columns: ':not(.notExport)'
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  text: 'PDF',
+                  className: 'btn btn-default',
+                  exportOptions: {
+                      columns: ':not(.notExport)'
+                  }
+              },
+              {
+                  extend: 'print',
+                  text: 'Print',
+                  className: 'btn btn-default',
+                  exportOptions: {
+                      columns: ':not(.notExport)'
+                  }
+              }
+          ],
+          responsive: {
+              details: {
+                  display: $.fn.dataTable.Responsive.display.modal({
+                      header: function (row) {
+                          var data = row.data();
+                          return 'Details for ' + data[0] + ' ' + data[1];
+                      }
+                  }),
+                  renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                      tableClass: 'table'
+                  })
+              }
+          }
+      });
+  });
+
+  function enable(id) {
+    $.ajax({
+      url: `/admin/coupon-enable/${id}`,
+      method: 'get',
+      success: (response) => {
+        location.reload()
+
+      }
+    })
+
+  }
+
+  function disable(id) {
+    $.ajax({
+      url: `/admin/coupon-disable/${id}`,
+      method: 'get',
+      success: (response) => {
+        location.reload()
+
+      }
+    })
+  }
+ 
+  function confirmation(couponId){
+    console.log(couponId)
+  Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   location.href=`/admin/deletecoupon/${couponId}`
+  }
+})
+}
+</script>

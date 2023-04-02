@@ -1,0 +1,165 @@
+<%- include('../partials/admin-navbar')%>
+<%- include('../partials/sidebar')%>
+
+<style>
+     /* === BASE HEADING === */ 
+
+ .twelve h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color: #c50000;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color: #c50000;
+    content: '';
+    display: block;
+  position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* body {
+  background: #eee;
+} */
+.heading {
+  position: relative;
+  /* background: #f8f8f8; */
+  width: 90%;
+  max-width: 500px;
+  padding: 2em;
+  margin: 1.5em auto;
+  /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+  background-color: #c50000;
+}
+</style>
+
+      <div class="content">
+
+       
+        <div class="twelve heading">
+            <h1>Category offers</h1>
+          </div>
+
+        <section>
+          <div class="col-md-10 offset-md-1">
+
+            <div class="container bg-white ">
+                <div class="d-flex justify-content-end">
+                    <a href="addCategoryOffer" class="btn btn-sm btn-primary">Add Offers</a>
+                    </div>
+              <table class="table table-striped" id="categorie">
+                <thead>
+                  <tr>
+                    <th scope="col">CATEGORY NAME</th>
+
+                    <th scope="col">IMAGE</th>
+                    <th scope="col">DISCOUNT</th>
+
+                    <th scope="col">VALID FROM</th>
+                    <th scope="col">VALID TO</th>
+
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th>
+
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <% for(var i=0; i< category.length;i++) {%>
+            <%if(category[i].offer.discount){%>
+
+                    <tr>
+                      
+                      <td>
+                        <%-category[i].name%>
+                      </td>
+                      <td>
+                        <img src="<%-category[i].image.url%>" alt="" style="width: 50px; height: 50px;">
+                      </td>
+                      <td>
+                        <%-category[i].offer.discount%> %
+                      </td>
+                      <td>
+                        <%-category[i].offer.validFrom%>
+                      </td>
+
+                      <td>
+                        <%-category[i].offer.validTo%>
+
+                      </td>
+                      
+                  
+                     
+            
+        
+            <td><a class="btn btn-sm" href="categories/editoffer/<%-category[i]._id%>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+            <td>
+                <button class="btn btn-danger m-2 "
+                onclick="confirmation('<%-category[i]._id%>')"><i
+                  class="fa-solid fa-trash"></i></button>
+            </td>
+            </tr>
+            <% } %>
+            <% } %>
+
+
+              </tbody>
+              </table>
+          </div>
+        </div>
+      
+        </section>
+        <script>
+            function confirmation(catId){
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+             location.href=`/admin/deleteOffer/${catId}`
+            }
+          })
+            }
+          </script>

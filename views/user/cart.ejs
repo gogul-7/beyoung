@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  
+</head>
+
+<body style="background-color: #eee;">
+  <%- include('../partials/navbar')%>
+    <section class="h-100 h-custom" >
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12">
+            <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+              <div class="card-body p-0">
+                <div class="row g-0">
+                  <% if (response.length>0) { %>
+
+                  <div class="col-lg-8">
+                    <div class="p-5">
+                      <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h3 class="fw-bold mb-0 text-black">Shopping Cart</h3>
+                        <h6 class="mb-0 text-muted">
+                          <%-response.length%> items
+                        </h6>
+                      </div>
+                       
+                      <!-- <% if (address.length>0) { %>
+                       
+                      <hr class="my-4">
+                      <div class="row mb-4 d-flex justify-content-between align-items-center">
+                        <div class="col-md-10">
+                          <p class=" mb-0">Deliver To: <b>
+                              <%-address[0].fullname%>&nbsp; <%-address[0].phoneno%>
+                            </b>  <span class="badge text-muted" style="background-color: #d0d0d0"><%-address[0].addresstype%></span> <br>
+                              <%-address[0].address_line%>,<%-address[0].locality%>,
+                                  <%-address[0].city_district_town%>,<%-address[0].state%>-<%-address[0].pincode%>
+                          </p>
+                        </div>
+                        <div class="col-md-2">
+                          <button class="btn-sm btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Change</button>
+                        </div>
+                      </div>
+                      <%}  %> -->
+
+                      <hr class="my-4">
+                      <% for(var i=0; i< response.length;i++) {%>
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <a href="/productview/<%-response[i].product._id%>"><img src="<%-response[i].product.images[0].url%>" class="img-fluid rounded-3"
+                              alt="Cotton T-shirt"></a>
+                            
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-muted"><%-response[i].product.categoryname%></h6>
+                             <h6 class="text-danger"><%-response[i].product.brand%></h6>
+                              
+                            <h6 class="text-black mb-0">
+                              <%-response[i].product.productname%>
+                            </h6>
+                            <button class="mt-3 btn btn-outline-danger"  onclick="saveforlater('<%-response[i]._id%>','<%-response[i].product._id%>','<%-response[i].quantity%>')">Save For Later</button>
+                            
+                          </div>
+                        
+
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <button class="btn btn-link px-2"
+                              onclick="changeQuantity('<%-response[i]._id%>','<%-response[i].product._id%>','<%-user._id%>',-1)">
+                              <i class="fas fa-minus"></i>
+                            </button>
+
+                            <span id="<%-response[i].product._id%>" class="form-control">
+                              <%-response[i].quantity%>
+                            </span>
+                            <button class="btn btn-link px-2"
+                              onclick="changeQuantity('<%-response[i]._id%>','<%-response[i].product._id%>','<%-user._id%>',1)" <%= response[i].product.stock <= response[i].quantity ? 'disabled' : ''%>>
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0"><s>&#8377;<%-response[i].product.price%> </s> &nbsp; &#8377;
+                              <%-response[i].product.actualprice%>
+                            </h6>
+  
+                          </div>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <a onclick="confirmation('<%-response[i]._id%>','<%-response[i].product._id%>')"
+                              class="text-muted" ><i class="fas fa-times"></i></a>
+                          </div>
+                          <% if (response[i].product.stock == response[i].quantity) { %>
+                            
+                            <p class="text-danger mt-2">
+
+                          Only this much quantity available
+                        </p>
+                          <%}  %>
+                          <% if (response[i].product.stock==0) { %>
+                            
+                            <p class="text-danger mt-2">
+
+                              Currently Out of Stock
+
+                        </p>
+                        <%} else if ( response[i].product.stock < response[i].quantity){ %>
+                          <p class="text-danger mt-2">
+                            Only <%-response[i].product.stock%> available.To continue change the quantity to <%-response[i].product.stock%> 
+
+                          </p>
+                          <%}  %>
+                         
+                        </div>
+                        <% } %>
+
+
+                          <hr class="my-4">
+
+                          <div class="pt-5">
+                            <h6 class="mb-0"><a href="/" class="text-body"><i
+                                  class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                          </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 bg-grey">
+                    <div class="p-5">
+                      <h3 class="fw-bold mb-5 mt-2 pt-1">Price Details</h3>
+                      <hr class="my-4">
+
+                      <div class="d-flex justify-content-between mb-4">
+                        <h6 class="text-uppercase">Price(<%-response.length%> items)</h6>
+                        <h6>&#8377;<span id="subtotal">
+                            <%-total.subTotal%>
+                          </span></h>
+                      </div>
+                      <div class="d-flex justify-content-between mb-4">
+                        <h6 class="text-uppercase">Discount : </h6>
+                        <h6>&#8377;<span id="discount">
+                            <%-total.discount%>
+                          </span></h6>
+                      </div>
+                      <div class="d-flex justify-content-between mb-4">
+                        <h6 class="text-uppercase">Delivery Charges : </h6>
+                        <h6>FREE</h6>
+                      </div>
+                      <!--   
+                    <h5 class="text-uppercase mb-3">Shipping</h5>
+  
+                    <div class="mb-4 pb-2">
+                      <select class="select">
+                        <option value="1">Standard-Delivery- €5.00</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                      </select>
+                    </div> -->
+
+                      <!-- <h5 class="text-uppercase mb-3">Give code</h5>
+  
+                    <div class="mb-5">
+                      <div class="form-outline">
+                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea2">Enter your code</label>
+                      </div>
+                    </div> -->
+
+                      <hr class="my-4">
+
+                      <div class="d-flex justify-content-between mb-5">
+                        <h5 class="text-uppercase">Total price :</h5>
+                        <h5> &#8377;<span id="total">
+                            <%-total.totalAmount%>
+                          </span></h5>
+                      </div>
+                      <p>You will save &#8377;<span id="discount">
+                          <%-total.discount%>
+                        </span> in this order</p>
+
+
+                        <div class="d-flex justify-content-center">
+
+                      <a href="/checkout"><button type="button" class="btn btn-dark btn-block " data-mdb-ripple-color="dark">GO TO 
+                       CHECKOUT</button></a>
+                        </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <%} else { %>
+
+                  <div class="d-flex justify-content-center my-5 col-lg-12">    
+                    <div class="card text-center" style="width: 20rem;">
+                        <img src="/images/cartlogin.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Your cart is empty!</h5>
+                          <p class="card-text">Explore our wide selection and find something you like
+                          </p>
+                          <a href="/" class="btn btn-primary">Back To Shop</a>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   
+      <script>
+        function changeQuantity(cartId, productId, userId, count) {
+          let quantity = parseInt(document.getElementById(productId).innerHTML)
+          count = parseInt(count)
+          console.log(userId)
+          $.ajax({
+            url: '/change-product-quantity',
+            data: {
+              user: userId,
+              product: productId,
+              cart: cartId,
+              count: count,
+              quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+              if (response.removeProduct) {
+                sessionStorage.setItem("removedFromCart", "true");
+                document.location.reload();       
+              }
+              else {
+                console.log(response.subtotal)
+                document.getElementById(productId).innerHTML = quantity + count
+                document.getElementById('total').innerHTML = response.total
+                document.getElementById('subtotal').innerHTML = response.subtotal
+                document.getElementById('discount').innerHTML = response.subtotal - response.total
+              location.reload()
+
+              }
+            }
+          })
+        }
+        function myFunction(msg) {
+            alertify.success(msg);
+          }
+          window.onload = function () {
+            var removedFromCart = sessionStorage.getItem("removedFromCart");
+            var removeFromSaved= sessionStorage.getItem("removedFromSaved");
+            var savedForLater=sessionStorage.getItem("savedForLater");
+            var moveToCart=sessionStorage.getItem("moveToCart");          
+            if (removedFromCart) {
+              sessionStorage.removeItem("removedFromCart");
+              myFunction('Product has been removed from your Cart');
+            }
+            if (removeFromSaved) {
+              sessionStorage.removeItem("removedFromSaved");
+              myFunction('Product has been removed from your Saved LIst');
+            }
+            if (savedForLater) {
+              sessionStorage.removeItem("savedForLater");
+              myFunction('Product has been Saved For Later');
+            }
+            if (moveToCart) {
+              sessionStorage.removeItem("moveToCart");
+              myFunction('Product has been moved to Your Cart');
+            }
+          }
+        function deleteProduct(cartId, productId) {
+          $.ajax({
+            url: '/remove-cartItem',
+            data: {
+              cart: cartId,
+              product: productId  
+            },
+            method: 'post',
+            success: (response) => {
+              sessionStorage.setItem("removedFromCart", "true");
+                document.location.reload();       
+            }
+          })
+        }
+        function saveforlater(cartId, productId,quantity) {
+          $.ajax({
+            url: '/save-for-later',
+            data: {
+              cart: cartId,
+              product: productId,
+              qty:quantity
+            },
+            method: 'post',
+            success: (response) => {
+              sessionStorage.setItem("savedForLater", "true");
+                document.location.reload();
+            }
+          })
+        }
+        function movetocart(cartId, productId,quantity) {
+          $.ajax({
+            url: '/move-to-cart',
+            data: {
+              cart: cartId,
+              product: productId,
+              qty:quantity
+            },
+            method: 'post',
+            success: (response) => {
+              sessionStorage.setItem("moveToCart", "true");
+                document.location.reload();
+            }
+          })
+        }
+        function remove(cartId, productId) {
+          $.ajax({
+            url: '/remove-savedItem',
+            data: {
+              cart: cartId,
+              product: productId
+            },
+            method: 'post',
+            success: (response) => {
+              
+              sessionStorage.setItem("removedFromSaved", "true");
+                document.location.reload();
+            }
+          })
+        }
+
+//sweet-alert
+
+        function confirmation(cartId, productId) {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Remove'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteProduct(cartId, productId)
+              }
+            })
+          }
+          function confirmationSaved(cartId, productId) {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Remove'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                remove(cartId, productId)
+              }
+            })
+          }
+      </script>
+
+
+
+
+<section class="h-100 h-custom mb-5" >
+  <div class="container  h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <% if (saveforlater.length>0) { %>
+
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h4 class="fw-bold mb-0 text-black">Saved For Later</h4>
+                    <h6 class="mb-0 text-muted">
+                      <%-saveforlater.length%> items
+                    </h6>
+                  </div>
+                   
+                 
+                  <hr class="my-4">
+                  <% for(var i=0; i< saveforlater.length;i++) {%>
+                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                      <div class="col-md-2 col-lg-2 col-xl-2">
+                        <a href="/productview/<%-saveforlater[i].product._id%>"><img src="<%-saveforlater[i].product.images[0].url%>" class="img-fluid rounded-3"
+                          alt="Cotton T-shirt"></a>
+                        
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-muted"><%-saveforlater[i].product.categoryname%></h6>
+                         <h6 class="text-danger"><%-saveforlater[i].product.brand%></h6>                          
+                        <h6 class="text-black mb-0">
+                          <%-saveforlater[i].product.productname%>
+                        </h6>
+                        <button class="mt-3 btn btn-outline-primary" onclick="movetocart('<%-saveforlater[i]._id%>','<%-saveforlater[i].product._id%>','<%-saveforlater[i].quantity%>')">Move to Cart</button>
+
+                      </div>
+
+
+                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <button class="btn btn-link px-2" disabled>
+                          <i class="fas fa-minus text-muted"></i>
+                        </button>
+
+                        <span id="<%-saveforlater[i].product._id%>" class="form-control">
+                          <%-saveforlater[i].quantity%>
+                        </span>
+                        <button class="btn btn-link px-2" disabled>
+                          <i class="fas fa-plus text-muted"></i>
+                        </button>
+                      </div>
+                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0">&#8377;
+                          <%-saveforlater[i].product.price%>
+                        </h6>
+                      </div>
+                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                        <a onclick="confirmationSaved('<%-saveforlater[i]._id%>','<%-saveforlater[i].product._id%>')"
+                          class="text-muted btn btn-outline-danger">Remove</a>
+                      </div>
+                    </div>
+                    <% } %>
+
+
+                      <!-- <hr class="my-4"> -->
+
+                      <div class="pt-5">
+                        <h6 class="mb-0"><a href="/" class="text-body"><i
+                              class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                      </div>
+                </div>
+              </div>
+              
+            </div>
+           
+              <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+<%- include('../partials/footer')%>
+
+</html>

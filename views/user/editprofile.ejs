@@ -1,0 +1,195 @@
+
+<head>
+    <title>Edit Profile</title>
+   </head> 
+<%- include('../partials/navbar')%>
+    <!-- <h1>user profile</h1> -->
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <!-- <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item"><a href="#">Address Management</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">Edit Address</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <%if(userdetails.dp.url){%>
+                                <img src="<%-userdetails.dp.url%>" alt="avatar"
+                                class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                                <%}else{%>
+                                  <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="avatar"
+                                  class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                                <%}%>   
+                                <h5 class="my-3 text-uppercase"><%-userdetails.fullname%></h5>
+
+                            <!-- <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div> -->
+                        </div>
+                    </div>
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <i class="fa-regular fa-calendar" style="color: #00ff11;"></i>&nbsp;&nbsp;
+                                    <p class="mb-0 fw-bold text-uppercase">My Orders </p>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                        class="fa-solid fa-greater-than" style="color: #007bff;"></i>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <i class="fa-solid fa-user" style="color: #0008f0;"></i></i> &nbsp;&nbsp;
+                                    <p class="mb-0 fw-bold">ACCOUNT SETTINGS</p>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3 bg-light">
+                                    <p class="mb-0 text-primary"><a href="/userprofile" style="text-decoration:none;">Profile Informations</a></p>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <p class="mb-0"><a href="/userprofile/address" style="text-decoration:none;" class="link-dark">Manage Addresses</a></p>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <p class="mb-0"><a href="/userprofile/password" style="text-decoration:none;" class="link-dark">Change Password</a></p>
+                                  </li>
+                                  <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <i class="fa-solid fa-envelope" style="color: #0008f0"></i>
+                                  &nbsp;&nbsp;
+                                  <p class="mb-0 fw-bold">MY STUFF</p>
+                                </li>
+                                <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <p class="mb-0">
+                                    <a
+                                    href="/wishlist"
+                                    style="text-decoration: none"
+                                    class="link-dark"
+                                    >My Wishlist</a
+                                  >
+                                  </p>
+                                </li>
+                                <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <p class="mb-0">
+                                    <a
+                                      href="/userprofile/myCoupons"
+                                      style="text-decoration: none"
+                                      class="link-dark"
+                                      >My Coupons</a
+                                    >
+                                  </p>
+                                </li>
+                                <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <p class="mb-0">
+                                    <a
+                                      href="/userprofile/reviews"
+                                      style="text-decoration: none"
+                                      class="link-dark"
+                                      >My Reviews & Ratings</a
+                                    >
+                                  </p>
+                                </li>
+                           
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff0000;"></i>&nbsp;
+                                    <p class="mb-0 text-uppercase fw-bold"><a href="/logout" style="text-decoration:none;" class="link-dark">logout</a></p>
+
+                                </li>
+                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form class="form-horizontal" role="form" action="/userprofile/editprofile?_method=PATCH" method="post">
+
+                                    <h2>Edit Profile</h2>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="inputFullName" class="col-sm-5 control-label">First Name</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text"  class="form-control" id="inputFullName"
+                                                    name="firstname" placeholder="Full Name" value="<%-userdetails.firstname%>" onkeypress="return (event.charCode > 64 && 
+	event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" 
+	placeholder="Full Name">
+                                                    <!-- <input type="text"> -->
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label for="inputFullName" class="col-sm-5 control-label">Last Name</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputFullName"
+                                                        name="lastname" placeholder="Full Name" value="<%-userdetails.lastname%>" onkeypress="return (event.charCode > 64 && 
+                                                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                                                </div>
+                                            </div>
+
+                                        </div><br>
+                                        <!-- <div class="form-group">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="inputFullName" class="col-sm-5 control-label">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control" id="inputFullName"
+                                                            name="email" placeholder="Full Name" value="<%-userdetails.email%>">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="inputZipPostalCode" class="col-sm-5 control-label">Phone
+                                                        No</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="number" class="form-control"
+                                                            id="inputZipPostalCode" name="phoneno"
+                                                            placeholder="Your pin code" value="<%-userdetails.phoneno%>">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div> -->
+                                        <br>
+                 
+                                   
+                                        
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit"
+                                                class="btn btn-primary align-center my-3">Save Changes</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('../partials/footer')%>

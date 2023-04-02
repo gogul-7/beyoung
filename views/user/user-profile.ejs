@@ -1,0 +1,483 @@
+  
+  
+ <head>
+  <title>My Profile</title>
+  <!-- crop -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+<style>
+  .profilepic {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #111;
+  
+}
+
+.profilepic:hover .profilepic__content {
+  opacity: 1;
+}
+
+.profilepic:hover .profilepic__image {
+  opacity: .5;
+}
+
+.profilepic__image {
+  object-fit: fill;
+  opacity: 1;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: white;
+  padding-bottom: 8px;
+}
+
+.fas {
+  font-size: 20px;
+}
+
+.profilepic__text {
+  text-transform: uppercase;
+  font-size: 12px;
+  width: 50%;
+  text-align: center;
+}
+.button {
+  background-color: white;
+  color: black;
+  border: 2px solid  #008CBA; /* Green */
+  border-radius: 20px;
+  transition-duration: 0.4s;
+
+}
+ 
+
+.button:hover {
+  background-color:  #008CBA; /* Green */
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+ </head> 
+ 
+  
+  <%- include('../partials/navbar')%>
+<!-- <h1>user profile</h1> -->
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <!-- <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">User</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+
+          </nav>
+        </div>
+      </div> -->
+      <%- include('../flashes/flash')%>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <%if(userdetails.dp.url){%>
+                <img src="<%-userdetails.dp.url%>" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                <%}else{%>
+                  <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="avatar"
+                  class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                <%}%> 
+              
+              <h5 class="my-3 text-uppercase"><%-userdetails.fullname%></h5>
+              <hr>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="mb-0">Referral Code</p>
+                </div>
+                <div class="col-sm-8">
+                  <p class="fw-bold mb-0"><%-userdetails.referralCode%>&nbsp; &nbsp;
+                    <input type="text" value="<%-userdetails.referralCode%>" id="myInput" hidden>
+                    <a onclick="myFunction()" style="cursor: pointer" >  <i class="fa-solid fa-copy"></i></a></p>
+                 
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="mb-0">Your Wallet</p>
+                </div>
+                <div class="col-sm-8">
+                  <p class="fw-bold mb-0">Balance : &#8377;<%-userdetails.wallet%> /-</p>
+                 
+                </div>
+              </div>
+
+
+              <!-- <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div> -->
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                    <i class="fa-regular fa-calendar" style="color: #00ff11;"></i>&nbsp;&nbsp;
+                    <p class="mb-0 fw-bold text-uppercase">My Orders </p>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-greater-than" style="color: #007bff;"></i>
+                  </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                    <i class="fa-solid fa-user" style="color: #0008f0;"></i></i> &nbsp;&nbsp;
+                    <p class="mb-0 fw-bold">ACCOUNT SETTINGS</p>
+                  </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3 bg-light">
+                  <p class="mb-0 text-primary">Profile Informations</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <p class="mb-0"><a href="/userprofile/address" style="text-decoration:none;" class="link-dark">Manage Addresses</a></p>
+                </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                  <p class="mb-0"><a href="/userprofile/password" style="text-decoration:none;" class="link-dark">Change Password</a></p>
+                </li>
+                <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <i class="fa-solid fa-envelope" style="color: #0008f0"></i>
+                &nbsp;&nbsp;
+                <p class="mb-0 fw-bold">MY STUFF</p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <p class="mb-0">
+                  <a
+                  href="/wishlist"
+                  style="text-decoration: none"
+                  class="link-dark"
+                  >My Wishlist</a
+                >
+                </p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <p class="mb-0">
+                  <a
+                    href="/userprofile/myCoupons"
+                    style="text-decoration: none"
+                    class="link-dark"
+                    >My Coupons</a
+                  >
+                </p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-center align-items-center p-3"
+              >
+                <p class="mb-0">
+                  <a
+                    href="/userprofile/reviews"
+                    style="text-decoration: none"
+                    class="link-dark"
+                    >My Reviews & Ratings</a
+                  >
+                </p>
+              </li>
+                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff0000;"></i>&nbsp;
+                  <p class="mb-0 text-uppercase fw-bold"><a href="/logout" style="text-decoration:none;" class="link-dark">logout</a></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="d-flex justify-content-center mb-5">
+                  
+                  <div class="profilepic d-flex justify-content-center">
+                    <img class="profilepic__image " id=imgView1 src="<%-userdetails.dp.url%>"   />
+                    <form method="post" action="/userprofile/dp?_method=PATCH" enctype="multipart/form-data" id="myForm">
+                    <label for="id_image1">
+                      <div class="profilepic__content" role="button">
+                        <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
+                        <span class="profilepic__text">
+                          <input  type="file" id="id_image1" name="image" accept="image/*"  onchange="validateImage()"  hidden/>Edit Profile
+                        </span>
+                      </div>
+                    </label>
+                    <input type="submit" id="editDp" hidden>
+                    </form>
+                  </div>
+                </div>
+                  <div class="row text-end mb-3">
+                    <span id="image-error"></span> 
+                    
+                    <div >
+                      <div id="image-box1" class="image-container"></div>
+                      <div class="d-flex justify-content-end">
+                      <a class="btn btn-sm btn-primary ms-3" id="crop-btn1" style=" margin-top: 10px; display: none;">Crop</a>
+                      
+                    
+                        <a href="/userProfile" class="btn btn-sm btn-danger  ms-3" id="cancel-crop" style=" margin-top: 10px; display: none;">Cancel</a>
+                       
+                      </div>
+                    </div>  
+      
+                  
+                  
+                  
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-sm-12 d-flex justify-content-center profile-pic">
+                    
+                       <%if(userdetails.dp.url){%>
+                        <img src="<%-userdetails.dp.url%>" alt="avatar"
+                        class=" profilepic__image"  id="imgView1" >
+                        <%}else{%>
+                          <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="avatar"
+                          class=" profilepic__image"  id="imgView1">
+                        <%}%>   
+                    
+                        <form action="/userprofile/dp?_method=PATCH" method="post" enctype="multipart/form-data" id="myForm">
+                          <label for="id_image1">
+                            <div class="profilepic__content" role="button">
+                              <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
+                              <span class="profilepic__text">
+                                <input  type="file" id="id_image1" name="image" accept="image/*"  onchange="validateImage()"  />Edit Profile
+                              </span>
+                            </div>
+                          </label>
+                          <input type="submit" id="editDp" hidden>
+
+                  </form>
+                </div> -->
+                <hr>
+                <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%-userdetails.fullname%>&nbsp; &nbsp; <a href="/userprofile/editprofile"><i class="fa-solid fa-pen-to-square" style="color: #0162ebd6;"></i></a></p>
+                 
+                </div>
+                </div>
+                <div class="row d-flex justify-content-end">
+                  <div class="col-sm-3">
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%-userdetails.email%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mobile</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%-userdetails.phoneno%></p>
+                </div>
+              </div>
+             
+                
+              </div>
+
+              
+            </div>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Deactivate Account
+              </button>
+              
+              </div>
+          </div>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Are you sure you want to leave?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         
+        <form action="/userprofile?_method=DELETE" method="post" id="myForm" novalidate>
+          <div class="form-outline mb-4">
+              <input type="email" id="email" class="form-control form-control-lg"
+                  name="email"  />
+              <label class="form-label" for="email">Your Email</label><br>
+          </div>                                  
+          <div class="form-outline mb-4">
+              <input type="password" id="password" class="form-control form-control-lg"
+                  name="password" />
+              <label class="form-label" for="password">Password</label><br>                                       
+          </div>
+          <div class="d-flex justify-content-between">
+          <button type="button" class="btn" data-bs-dismiss="modal"> <span class="text-primary">NO LET ME STAY!!!</span> </button>
+
+              <button type="submit"
+                  class="btn btn-danger btn-block btn-sm ">CONFIRM DEACTIVATION</button>
+
+          </div>
+
+         
+      </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer')%>
+<script>
+  const imageError = document.getElementById("image-error");
+  function validateImage() {
+        var fileInput =
+            document.getElementById('id_image1');
+          
+        var filePath = fileInput.value;
+     
+        // Allowing file type
+        var allowedExtensions =
+                /(\.jpg|\.webp|\.jpeg|\.png|\.gif)$/i;
+         
+        if (!allowedExtensions.exec(filePath)) {
+          imageError.innerHTML = "Image is not valid";
+          imageError.style.color = "red";
+            return false;
+        }
+  
+        imageError.innerHTML = "Image is valid";
+                        imageError.style.color = "green";
+                        return true;
+    
+    }
+  
+    const imagebox1 = document.getElementById('image-box1')
+    const crop_btn1 = document.getElementById('crop-btn1')
+    const input1 = document.getElementById('id_image1')
+    
+    // When user uploads the image this event will get triggered
+    input1.addEventListener('change', () => {
+      if(imageError.innerHTML=="Image is valid"){
+      // Getting image file object from the input variable
+      const img_data1 = input1.files[0]
+      // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+      // The new object URL represents the specified File object or Blob object.
+      const url1 = URL.createObjectURL(img_data1)
+      // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+      imagebox1.innerHTML = `<img src="${url1}" id="image1" style="width:50%;">`
+      // Storing that cropping view image in a variable
+      const image = document.getElementById('image')
+      // Displaying the image box
+      document.getElementById('image-box1').style.display = 'block'
+      // Displaying the Crop buttton
+      document.getElementById('crop-btn1').style.display = 'block'
+      document.getElementById('cancel-crop').style.display = 'block'
+      // Hiding the Post button
+      const cropper1 = new Cropper(image1, {
+        autoCropArea: 1,
+        viewMode: 1,
+        scalable: false,
+        zoomable: false,
+        movable: false,
+        minCropBoxWidth: 50,
+        minCropBoxHeight: 50,
+      })
+      // When crop button is clicked this event will get triggered
+      crop_btn1.addEventListener('click', () => {
+        // This method coverts the selected cropped image on the cropper canvas into a blob object
+        cropper1.getCroppedCanvas().toBlob((blob) => {
+          // Gets the original image data
+          let fileInputElement1 = document.getElementById('id_image1');
+          // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+          let file1 = new File([blob], img_data1.name, { type: "image/*", lastModified: new Date().getTime() });
+          // Create a new container
+          let container1 = new DataTransfer();
+          // Add the cropped image file to the container
+          container1.items.add(file1);
+          // Replace the original image file with the new cropped image file
+          fileInputElement1.files = container1.files;
+          // document.getElementById('imgView1').src = URL.createObjectURL(fileInputElement1.files[0])
+          // Hide the cropper box
+          document.getElementById('image-box1').style.display = 'none'
+          // Hide the crop button
+          document.getElementById('crop-btn1').style.display = 'none'
+          document.getElementById('cancel-crop').style.display = 'none'
+  
+          $("#editDp").trigger("click")
+  
+        })
+      })
+    }
+  })
+  
+  
+  
+  
+  
+  
+  
+  
+  function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById("myInput");
+    
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+      // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+      
+      // Alert the copied text
+      // alert("Copied the text: " + copyText.value);
+      alertify.success('copied')
+    }
+   
+  
+    </script>
+   
+   
+   

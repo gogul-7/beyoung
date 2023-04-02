@@ -1,0 +1,228 @@
+<style>
+    /* === BASE HEADING === */ 
+
+.twelve h1 {
+ position: relative;
+ padding: 0;
+ margin: 0;
+ font-family: "Raleway", sans-serif;
+ font-weight: 300;
+ font-size: 40px;
+ color: #080808;
+ -webkit-transition: all 0.4s ease 0s;
+ -o-transition: all 0.4s ease 0s;
+ transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+ font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+   background-color: #c50000;
+   content: '';
+   display: block;
+   height: 3px;
+   width: 75px;
+   margin-bottom: 5px;
+}
+.twelve h1:after {
+   background-color: #c50000;
+   content: '';
+   display: block;
+ position:absolute; right:0; bottom:0;
+   height: 3px;
+   width: 75px;
+   margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+ -moz-box-sizing: border-box;
+ -webkit-box-sizing: border-box;
+ box-sizing: border-box;
+}
+/* body {
+ background: #eee;
+} */
+.heading {
+ position: relative;
+ /* background: #f8f8f8; */
+ width: 90%;
+ max-width: 500px;
+ padding: 2em;
+ margin: 1.5em auto;
+ /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+ background-color: #c50000;
+}
+</style>
+<%- include('../partials/admin-navbar')%>
+
+<%- include('../partials/sidebar')%>
+<div class="content">
+  <div class="row">
+    <div class="mt-3 text-center">
+      <%- include('../flashes/flash')%>
+      </div>
+    <!-- <h2 class="text-center fw-bold mt-3">ADD PRODUCT</h2> -->
+    <div class="twelve heading">
+      <h1>ADD Coupon</h1>
+      </div>
+    <div class="col-6 offset-3">
+      <form method="post" action="/admin/addCoupon"  id="myForm" >
+        <div class="mb-3">
+          <label for="coupon_code" class="form-label">Coupon code</label>
+          <input type="text" class="form-control " name="coupon_code" id="coupon_code" onkeyup="validateCoupon()"/>
+        <span id="coupon-error"></span>
+
+        </div>
+
+        
+
+        <div class="row mb-3">
+          
+
+            <div class="col-md-6">
+            <label for="minimum_purchase" class="form-label">Minimum Purchase</label>
+                <div class="input-group">
+                  <span class="input-group-text">&#8377;</span>
+                  <input type="number" id="minimum_purchase" name="minimum_purchase" class="form-control " onkeyup="validateMinimum()" />
+                  <span class="input-group-text">.00</span>
+                  
+                </div>
+            <span id="minimum-error"></span>
+
+             </div>
+
+
+             <div class="col-md-6">
+                <label for="amount_off" class="form-label">Amount off</label>
+                <div class="input-group">
+                  <span class="input-group-text">&#8377;</span>
+                  <input type="number" id="amount_off" name="amount_off" class="form-control " onkeyup="validateAmountoff()" />
+                  <span class="input-group-text">.00</span>
+                  
+                </div>
+            <span id="amountoff-error"></span>
+    
+                </div>
+        </div>
+
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="valid_from" class="form-label">Valid from</label>
+                <input type="date" id="valid_from" name="valid_from" class="form-control " required />
+        <span id="validfrom-error"></span>
+
+            </div>
+  
+            <div class="col-md-6">
+              <label for="valid_till" class="form-label ">Valid till</label>
+             
+                <input type="date" id="valid_till" name="valid_till" class="form-control " required/>
+        <span id="validtill-error"></span>
+              
+            </div> 
+          </div>
+
+        
+       
+
+        <button type="submit" class="btn btn-primary align-center">Submit</button>
+        <span id="submit-error"></span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("myForm");
+  const couponError=document.getElementById("coupon-error")
+  const amountoffError=document.getElementById("amountoff-error")
+  const minimumError=document.getElementById("minimum-error")
+  const validfromError=document.getElementById("validfrom-error")
+  const validtillError=document.getElementById("validtill-error")
+ 
+
+  form.addEventListener('submit', e => {
+      
+      if(validateCoupon()&&validateAmountoff()&&validateMinimum()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+   
+function validateCoupon() {
+    var name=document.getElementById('coupon_code').value.trim();  
+
+    if (name.length<5) {
+        couponError.innerHTML='Atleast 5 characters';
+        couponError.style.color='red'
+        return false;
+    }
+
+couponError.innerHTML='Coupon code is valid';
+    couponError.style.color='green'
+    return true;
+}
+function validateAmountoff() {
+    var amountoff =document.getElementById('amount_off').value.trim();
+    var minimum =parseInt(document.getElementById('minimum_purchase').value.trim());
+    
+    
+    if(amountoff<=0){
+        amountoffError.innerHTML ='Cannot be -ve value or zero';
+        amountoffError.style.color='red'
+        return false;
+    
+    }
+     
+    if(amountoff>minimum){
+        amountoffError.innerHTML ='Should be less than minimum purchase';
+        amountoffError.style.color='red'
+        return false;
+    
+    }
+    amountoffError.innerHTML='Amount off is valid';
+    amountoffError.style.color='green'
+    return true;    
+    
+}
+function validateMinimum() {
+    var minimum =document.getElementById('minimum_purchase').value.trim();
+    
+    
+    if(minimum<=0){
+        minimumError.innerHTML ='Minimum purchase cannot be -ve or zero';
+        minimumError.style.color='red'
+        return false;
+    
+    }
+    
+    minimumError.innerHTML='Minimum purchase is valid';
+    minimumError.style.color='green'
+    return true;    
+    
+}
+
+        
+
+</script>

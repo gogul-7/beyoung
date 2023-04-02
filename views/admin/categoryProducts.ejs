@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+  <%- include('../partials/admin-navbar')%>
+<%- include('../partials/sidebar')%>
+        <div class="content">
+
+            <div class="d-flex justify-content-end">
+                <a href="/admin/products/addproduct"><button class="btn btn-dark  my-3 mx-3">Add Products</button></a>
+            </div>
+  <%- include('../flashes/flash')%>
+        
+        <section>
+          <div class="text-center container">
+            <h4 class="mt-4 mb-5"><strong><%-category.name%></strong></h4>
+            </div>
+            <div class="col-md-10 offset-md-1">
+            <div class="container bg-white">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>NO</th>
+                    <th scope="col">Name of Product</th>
+        
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stocks Available</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th>
+
+
+
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i< product.length;i++) {%>
+                    <tr>  
+                      <td>
+                        <%-i+1 %>.
+                      </td> 
+                      <td>
+                        <%-product[i].productname%>
+                      </td>
+                      <td>
+                        <%-category.name%>
+                      </td>
+                      <td>
+                        <%-product[i].price%>
+                      </td>
+                      <td>
+                        <%-product[i].stock%>
+                      </td>
+                      <td>
+                        <!-- <img src=" <%-product[i].images[0].url%>" alt="" style="width:50px; height:50px;"> -->
+<img src=" <%-product[i].images[0].url%>" alt="" style="width:50px; height:50px;">
+                      </td>
+                      <td>
+                        
+                        <a href="/admin/products/editproduct/<%-product[i]._id%>"><button class="btn btn-dark"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                      </td>
+                      <td>
+<form method="post" action="/admin/products/deleteproduct/<%-product[i]._id%>?_method=DELETE" >
+  <button class="btn btn-danger " onclick="return confirm('Do you want to delete <%-product[i].productname%>')" ><i class="fa-solid fa-trash"></i></button>
+  </form>
+
+                      </td>
+        
+                    </tr>
+                    <% } %>
+        
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </section>
+        </div>
+</body>
+</html>

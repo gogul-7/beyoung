@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeYoung - OTP verification</title>
+</head>
+<body>
+    <%- include('partials/navbar')%>
+    <section class=" d-flex  align-items-center   " style="height: 450px;">
+    <div class="col-md-4 offset-md-4 card p-5">
+      <h5 class="text-danger fw-bold">Please enter the one time password
+        to verify your account.</h5>
+      <h6 class="fw-bold">
+A code has been sent to <div class="text-danger inline-block"><%-phno%></div>
+
+      </h6>
+        <form action="/login/otplogin/verification" method="post">
+
+  <%- include('flashes/flash')%>
+       
+          <input type="number" class="form-control" id="phno" name="phno" value="<%-phno%>" hidden>
+        <div class="mb-3">
+            <input type="number" class="form-control" id="otp" name="otp">
+          </div>
+        <input type="text" value="<%-guestCart%>" name="guestCart" hidden>
+
+     
+        <button type="submit" class="btn btn-primary" id="sub">Submit</button>
+      </form>
+      <form action="/login/otplogin" method="post">
+
+        <input type="hidden" class="form-control" id="phno" name="phno" value="<%-phno%>">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text-center">
+                Not received your code?<br> <button type="submit" class="btn" id="btnCounter" disabled>Resend code</button><br>
+                <div class="otp-countdown"  id="count">05:00</div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+    </form>
+
+
+      </div>
+    </section>
+      
+      <style>
+        .otp-countdown{
+  display: inline-block;
+  margin: 0 auto;
+  padding: 8px 30px;
+  background-color: #333;
+  border-radius: 50px;
+  color: #fff;
+  
+}
+      </style>
+
+      
+</body>
+<script>
+  // Get refreence to span and button
+var spn = document.getElementById("count");
+var btn = document.getElementById("btnCounter");
+var submitbtn=document.getElementById("sub");
+
+var count = 30;     // Set count
+var timer = null;  // For referencing the timer
+
+(function countDown(){
+  // Display counter and start counting down
+  spn.textContent = count;
+  
+  // Run the function again every second if the count is not zero
+  if(count !== 0){
+    timer = setTimeout(countDown, 1000);
+    count--; // decrease the timer
+  } else {
+    // Enable the button
+    btn.removeAttribute("disabled");
+    submitbtn.setAttribute("disabled",true);
+
+  }
+}());
+</script>
+
+</html>

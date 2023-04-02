@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%-category.name%>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/category.css' />
+<style>
+  .badges{
+                                      background-color: rgb(255, 0, 0);
+                                      height: 25px;
+                                      width: 180px;
+                                    right: 0px;
+                                      position: absolute;
+                                      
+                                    }
+</style>
+</head>
+
+<body>
+  <%- include('partials/navbar')%>
+
+
+    
+    
+    <section style="background-color: #eee;">
+        <div class="container-fluid py-5">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between">
+               <div>
+                    
+
+                      <span class="ms-5 text-dark fw-bold"><%-category.name%> - <%-product.length%> items <% if(category.offer.discount){%>
+                       (<%-category.offer.discount%>% Off)
+                      <%}%>  </span>
+                      
+              </div>
+              <div>
+                
+              </div>
+              <div>
+                <div class="input-group">
+                  <div class="form-input" id="search-container">
+                    <input type="search" id="search-input" class="form-control" placeholder="Search"/>
+                    <!-- <label class="form-label" for="form1">Search</label> -->
+                  </div>
+                  <button type="button" id="search" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+              </nav>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-lg-2">
+              <!-- <div class="card mb-4">
+                <div class="card-body ">
+                    <p class=" mx-2"><strong>Filters</strong></p>
+                    
+    
+                </div>
+              </div>  -->
+              <div class="card mb-4">
+                <div class="card-body">
+                    <p class=" mx-2"><strong>Categories</strong></p>
+                    <div class="form-check">
+                      <input class="form-check-input button-value" type="radio" id="all" name="filter" onclick="filterProduct('all')">
+                      <label class="form-check-label" for="all">
+                        All
+                      </label>
+                  </div>
+                 
+                    <% for(let p of brands){%>
+
+                    <div class="form-check">
+                        <input class="form-check-input button-value" type="radio" id="<%-p.name%>" name="filter" onclick="filterProduct('<%-p.name%>')" >
+                        <label class="form-check-label" for="<%-p.name%>">
+                          <%-p.name%>
+                        </label>
+                    </div>
+                    <%}%>
+    
+                </div>
+              </div>        
+            </div>
+            
+            <div class="col-lg-10">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                   
+                    <% if(product.length>0){%>
+                             
+                            <% for(let p of product){%>
+
+
+                              <div class="col-12 col-sm-8 col-md-6 col-lg-3 py-3 hide <%-p.brand%> cards">
+          
+                                <div class="card">
+                                  <div class="d-flex justify-content-center">
+                                    <%if(p.stock==0){%>
+                                      <div class="badge badges"><h6>Currently Unavailable</h6></div>
+                                        <%}%>
+                                    
+                                  <img class="card-img" src="<%-p.images[0].url%>" alt="Vans" style="width: 155px; height:200px">
+                      
+                                  </div>
+                                  <div class="card-img-overlay d-flex justify-content-end">
+                                   
+                                      <%if(user){%> 
+                      
+                      
+                      
+                                      <%if(p.inWishlist){%>
+                                    <a  onclick="confirmation('F','<%-p._id%>')" class="card-link text-danger like">
+                      
+                                        <i class="fas fa-heart"></i></a>
+                                        <%}else{%>
+                                    <a onclick="confirmation('T','<%-p._id%>')" class="card-link text-danger like">
+                      
+                                          <i class="fa-regular fa-heart"></i></a>
+                                          
+                      
+                                        <%}%>
+                                        <%}else{%>
+                                          <i class="fa-regular fa-heart"></i>
+                      
+                                          <%}%> 
+                                    
+                                  </div>
+                                  <div class="card-body">
+                                    <!-- <h4 class="card-title"><%-p.categoryname%></h4> -->
+                                    <h6 class="card-subtitle mb-2 text-muted"><span class="p-company fw-bold text-danger brand-name"><%-p.brand%></span>
+                                    </h6>
+                                    <p class="card-text product-name">
+                                      <%-p.productname%>            </p>
+                                      <div class="fw-bold">
+                                        <%if(category.offer.discount!=null){%>
+                                          <%if(p.discount>category.offer.discount){%>
+                                            <%-p.discount%>%Off
+                                            <%}else{%>
+                                              <%-category.offer.discount%>%Off
+                                            <%}%>
+                                            <%}else{%>
+                                              <%-p.discount%>%Off
+                                            <%}%>       
+                                      </div>
+                                    <!-- <div class="options d-flex flex-fill">
+                                       <select class="custom-select mr-1">
+                                          <option selected>Color</option>
+                                          <option value="1">Green</option>
+                                          <option value="2">Blue</option>
+                                          <option value="3">Red</option>
+                                      </select>
+                                      <select class="custom-select ml-1">
+                                          <option selected>Size</option>
+                                          <option value="1">41</option>
+                                          <option value="2">42</option>
+                                          <option value="3">43</option>
+                                      </select> -->
+                                    <!-- </div> -->
+                                    <div class="buy d-flex justify-content-between align-items-center">
+                                      <div class="price text-success"><h6 class="mt-4">&nbsp; &#8377; <%-p.price%></h5></div>
+                                      
+                                       <a href="/productview/<%-p._id%>" class="btn btn-danger mt-3" style="z-index: 20">View Details</a>
+                                    </div>
+                                  </div>
+                                </div>
+</div>                    
+                              <%}%>
+                              </div>
+                      </div>
+                      <%}else{%>
+                       
+                        <div class="d-flex justify-content-center align-items-center my-5" style="height:300px;">
+                            
+                            <h3 class="fw-bold text-danger" >This category has no products</h3>
+                        </div>
+                        <%}%>
+                         
+                 
+                 
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+   
+    <script>
+     
+
+      //parameter passed from button
+      function filterProduct(value) {
+
+        // let buttons = document.querySelectorAll(".button-value");
+        // console.log(buttons)
+        // //check if value equals innerText
+        // buttons.forEach(button => {
+        //   if (value.toUpperCase() == button.innerText.toUpperCase()) {
+        //     button.classList.add('activeButton');
+        //   }
+        //   else {
+        //     button.classList.remove('activeButton');
+        //   }
+        // });
+
+        
+        //select all cards
+        let elements = document.querySelectorAll(".cards")
+        elements.forEach((element) => {
+          if (value == 'all') {
+            sessionStorage.setItem("brand",value)
+            element.classList.remove('hide');
+          }
+          else {
+            if (element.classList.contains(value)) {
+              sessionStorage.setItem("brand",value)
+              element.classList.remove('hide');
+            }
+            else {
+              element.classList.add('hide');
+            }
+          }
+        })
+      }
+
+
+      
+      document.getElementById('search').addEventListener
+        ("click", () => {
+          let searchInput = document.getElementById("search-input").value;
+          let elements = document.querySelectorAll(".product-name");
+          let elementsOfBrand = document.querySelectorAll(".brand-name");
+
+          let cards = document.querySelectorAll(".cards")
+
+
+          elements.forEach((element, index) => {
+            console.log(element.innerText)
+            console.log(searchInput.toUpperCase())
+            if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+              cards[index].classList.remove("hide");
+            }
+            else {
+
+              elementsOfBrand.forEach((element, indexx) => {
+
+                if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+                  cards[indexx].classList.remove("hide");
+                }
+                else {
+                  cards[index].classList.add("hide");
+                }
+              })
+            }
+          })
+
+          // elementsOfBrand.forEach((element,index)=>{
+          //   console.log(element.innerText)
+          //   console.log(searchInput.toUpperCase())
+          //   if(element.innerText.toUpperCase().includes(searchInput.toUpperCase())){
+          //     console.log('haiiii')
+          //     cards[index].classList.remove("hide");
+          //   }
+          //   else{
+          //     console.log('hai')
+          //     cards[index].classList.add("hide");
+          //   }
+          // })
+        })
+
+
+
+
+
+      //Initially display all products
+        // window.onload = () => {
+        //   document.getElementById('all').checked=true
+        //   filterProduct('all');
+        // }
+        function confirmation(R,proId){
+                if(R=='T'){
+            sessionStorage.setItem("addToWishlist", "true");
+            addToWishlist(proId)
+                } 
+            if(R=='F'){
+            sessionStorage.setItem("removedFromWishlist", "true");
+            deleteProduct(proId)
+            }
+
+            }
+            function myFunction(msg) {
+            alertify.success(msg);
+          }
+          window.onload = function () {
+            var addToWishlist = sessionStorage.getItem("addToWishlist");
+            var removedFromWishlist = sessionStorage.getItem("removedFromWishlist");
+            var filter = sessionStorage.getItem("filter");
+            if(filter){
+              let value=sessionStorage.getItem("brand")
+              sessionStorage.removeItem("filter");
+              document.getElementById(value).checked=true
+              filterProduct(value)
+            }
+else{
+            document.getElementById('all').checked=true
+        filterProduct('all');
+}
+                    
+            if (addToWishlist) {
+              sessionStorage.removeItem("addToWishlist");
+              myFunction('Added to your Wishlist');
+            }
+            if (removedFromWishlist) {
+              sessionStorage.removeItem("removedFromWishlist");
+              myFunction('Removed from your Wishlist');
+            }
+           
+          
+          }
+          function addToWishlist(productId) {
+          $.ajax({
+            url: '/addToWishlist',
+            data: {
+              proId: productId     
+            },
+            method: 'patch',
+            success: (response) => {
+                 sessionStorage.setItem("filter","true")
+                document.location.reload();
+            }
+          })
+        }
+        function deleteProduct(productId) {
+          $.ajax({
+            url: '/removeFromWishlist',
+            data: {
+              id: productId
+            },
+            method: 'patch',
+            success: (response) => {
+              sessionStorage.setItem("filter","true")
+                document.location.reload();       
+            }
+          })
+        }
+        
+    </script>
+</body>
+<%- include('./partials/footer')%>
+</html>

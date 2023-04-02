@@ -1,0 +1,482 @@
+<head>
+    <title>Edit Address</title>
+   </head> 
+<%- include('../partials/navbar')%>
+    <!-- <h1>user profile</h1> -->
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+            <!-- <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">User</a></li>
+                            <li class="breadcrumb-item"><a href="#">Address Management</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">Edit Address</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <%if(userdetails.dp.url){%>
+                                <img src="<%-userdetails.dp.url%>" alt="avatar"
+                                class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                                <%}else{%>
+                                  <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/profile-pic-male_4811a1.svg" alt="avatar"
+                                  class="rounded-circle img-fluid" style="width: 100px; height: 100px;">
+                                <%}%> 
+                                <h5 class="my-3 text-uppercase"><%-userdetails.fullname%></h5>
+
+                            <!-- <p class="text-muted mb-1">Full Stack Developer</p>
+              <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              </div> -->
+                        </div>
+                    </div>
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush rounded-3">
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <i class="fa-regular fa-calendar" style="color: #00ff11;"></i>&nbsp;&nbsp;
+                                    <p class="mb-0 fw-bold text-uppercase">My Orders </p>&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                        class="fa-solid fa-greater-than" style="color: #007bff;"></i>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <i class="fa-solid fa-user" style="color: #0008f0;"></i></i> &nbsp;&nbsp;
+                                    <p class="mb-0 fw-bold">ACCOUNT SETTINGS</p>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <p class="mb-0"><a href="/userprofile" style="text-decoration:none;" class="link-dark">Profile Informations</a></p>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3 bg-light">
+                                    <p class="mb-0 text-primary"><a href="/userprofile/address" style="text-decoration:none;">Manage Addresses</a></p>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <p class="mb-0"><a href="/userprofile/password" style="text-decoration:none;" class="link-dark">Change Password</a></p>
+                                  </li>
+                                  <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <i class="fa-solid fa-envelope" style="color: #0008f0"></i>
+                                  &nbsp;&nbsp;
+                                  <p class="mb-0 fw-bold">MY STUFF</p>
+                                </li>
+                                <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <p class="mb-0">
+                                    <a
+                                    href="/wishlist"
+                                    style="text-decoration: none"
+                                    class="link-dark"
+                                    >My Wishlist</a
+                                  >
+                                  </p>
+                                </li>
+                                <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <p class="mb-0">
+                                    <a
+                                      href="/userprofile/myCoupons"
+                                      style="text-decoration: none"
+                                      class="link-dark"
+                                      >My Coupons</a
+                                    >
+                                  </p>
+                                </li>
+                                <li
+                                  class="list-group-item d-flex justify-content-center align-items-center p-3"
+                                >
+                                  <p class="mb-0">
+                                    <a
+                                      href="/userprofile/reviews"
+                                      style="text-decoration: none"
+                                      class="link-dark"
+                                      >My Reviews & Ratings</a
+                                    >
+                                  </p>
+                                </li>
+                           
+                                <li class="list-group-item d-flex justify-content-center align-items-center p-3">
+                                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff0000;"></i>&nbsp;
+                                    <p class="mb-0 text-uppercase fw-bold"><a href="/logout" style="text-decoration:none;" class="link-dark">logout</a></p>
+
+                                </li>
+                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                  <p class="mb-0">mdbootstrap</p>
+                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                    <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form class="form-horizontal" role="form" action="/userprofile/editaddress/<%-id%>?_method=PATCH" method="post" id="myForm">
+
+                                    <h2>Edit Address</h2>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="name" class="col-sm-2 control-label">Name</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="name"
+                                                        name="fullname" placeholder="Full Name" value="<%-address.fullname%>" onkeyup="validateName()">
+                                                </div>
+                                                <span id="name-error"></span>
+                                            </div>
+                                            <div class="col">
+                                                <!-- <p class="col-sm-offset-2 col-sm-10 help-block">Street address</p> -->
+                                                <label for="phoneno"
+                                                    class="col-sm-2 control-label">Phone:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" class="form-control" id="phoneno"
+                                                        name="phoneno" placeholder="Enter your phone number" value="<%-address.phoneno%>" onkeyup="validatePhoneno()">
+                                                </div>
+                                                <span id="phoneNo-error"></span>
+                                            </div>
+
+                                        </div><br>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="pincode" class="col-sm-3 control-label">Pin
+                                                        Code</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="number" class="form-control"
+                                                            id="pincode" name="pincode"
+                                                            placeholder="Your pin code" value="<%-address.pincode%>" onkeyup="validatePinCode()">
+                                                    </div>
+                                                    <span id="pincode-error"></span>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="locality"
+                                                        class="col-sm-2 control-label">Locality</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="locality"
+                                                            name="locality" placeholder="Your Locality" value="<%-address.locality%>" onkeyup="validateLocality()">
+                                                    </div>
+                                                    <span id="locality-error"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                 
+                                    <div class="form-group">
+                                        <p class="col-sm-offset-2 col-sm-10 help-block">Street address, P.O. box,
+                                            company name, c/o</p>
+
+                                        <label for="addressLine" class="form-label">Address Line</label>
+                                        <textarea class="form-control" name="address_line" id="addressLine"
+                                            rows="3" onkeyup="validateAddressLine()"><%-address.address_line%></textarea>
+                                            <span id="addressLine-error"></span>
+                                    </div><br>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="city" class="col-sm-5 control-label">City /
+                                                    Districy / Town</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="city"
+                                                        name="city_district_town" placeholder="City / District / Town" value="<%-address.city_district_town%>" onkeyup="validateCity()">
+                                                </div>
+                                                <span id="city-error"></span>
+                                            </div>
+                                            <div class="col">
+                                                <label for="selectState" class="col-sm-2 control-label">State</label>
+                                                <div class="col-sm-10">
+
+                                                    <!--- India states -->
+                                                    <select class="form-control" id="selectState" name="state">
+                                                        <option value="AN">Andaman and Nicobar Islands</option>
+                                                        <option value="AP">Andhra Pradesh</option>
+                                                        <option value="AR">Arunachal Pradesh</option>
+                                                        <option value="AS">Assam</option>
+                                                        <option value="BR">Bihar</option>
+                                                        <option value="CH">Chandigarh</option>
+                                                        <option value="CT">Chhattisgarh</option>
+                                                        <option value="DN">Dadra and Nagar Haveli</option>
+                                                        <option value="DD">Daman and Diu</option>
+                                                        <option value="DL">Delhi</option>
+                                                        <option value="GA">Goa</option>
+                                                        <option value="GJ">Gujarat</option>
+                                                        <option value="HR">Haryana</option>
+                                                        <option value="HP">Himachal Pradesh</option>
+                                                        <option value="JK">Jammu and Kashmir</option>
+                                                        <option value="JH">Jharkhand</option>
+                                                        <option value="KA">Karnataka</option>
+                                                        <option value="KL" selected>Kerala</option>
+                                                        <option value="LA">Ladakh</option>
+                                                        <option value="LD">Lakshadweep</option>
+                                                        <option value="MP">Madhya Pradesh</option>
+                                                        <option value="MH">Maharashtra</option>
+                                                        <option value="MN">Manipur</option>
+                                                        <option value="ML">Meghalaya</option>
+                                                        <option value="MZ">Mizoram</option>
+                                                        <option value="NL">Nagaland</option>
+                                                        <option value="OR">Odisha</option>
+                                                        <option value="PY">Puducherry</option>
+                                                        <option value="PB">Punjab</option>
+                                                        <option value="RJ">Rajasthan</option>
+                                                        <option value="SK">Sikkim</option>
+                                                        <option value="TN">Tamil Nadu</option>
+                                                        <option value="TG">Telangana</option>
+                                                        <option value="TR">Tripura</option>
+                                                        <option value="UP">Uttar Pradesh</option>
+                                                        <option value="UT">Uttarakhand</option>
+                                                        <option value="WB">West Bengal</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div><br>
+
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="inputStateProvinceRegion"
+                                                        class="col-sm-10 control-label">Landmark</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control"
+                                                            id="inputStateProvinceRegion" name="landmark"
+                                                            placeholder="Landmark(optional)" value="<%-address.landmark%>">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="inputStateProvinceRegion"
+                                                        class="col-sm-10 control-label">Alternative phone no:</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="number" class="form-control"
+                                                            id="inputStateProvinceRegion" name="alt_phoneno"
+                                                            placeholder="(optional)" value="<%-address.alt_phoneno%>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                        Address Type
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="addresstype" id="flexRadioDefault1" value="Home">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                             Home
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="addresstype" id="flexRadioDefault2" checked value="Work">
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                              Work
+                                            </label>
+                                          </div>
+
+
+
+
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit"
+                                                class="btn btn-primary align-center my-3">Save Changes</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('../partials/footer')%>
+    
+      
+        
+<script>
+        const form = document.getElementById("myForm");
+        const nameError = document.getElementById("name-error");
+        const phonenoError = document.getElementById("phoneNo-error");
+        const pincodeError = document.getElementById("pincode-error"); 
+        const localityError = document.getElementById("locality-error");
+        const addressLineError = document.getElementById("addressLine-error");
+        const cityError = document.getElementById("city-error");
+        
+      
+       
+      
+        form.addEventListener('submit', e => {
+            
+            if(validateName()&&validatePhoneno()&&validatePinCode()&&validateLocality()&&validateAddressLine()&&validateCity()){
+        sessionStorage.setItem("editAddress", "true");
+               
+            }else{
+              e.preventDefault()
+              var error=document.getElementById('submit-error')
+              error.innerHTML='Fill all fields'
+              error.style.color='red'
+              setTimeout(function(){
+                error.innerHTML=''
+              },3000);
+            } 
+          })
+      
+          function validateName() {
+          var name=document.getElementById('name').value.trim();  
+      
+          if (name.length==0) {
+              nameError.innerHTML='Name is Required';
+              nameError.style.color='red'
+              return false;
+          }
+      
+          // if (!name.match(/^[A-Za-z]*$/)){
+          //     nameError.innerHTML='Write a Validname';
+          //     nameError.style.color='red'
+          //     return false;
+          // }
+          
+          nameError.innerHTML='Name is valid';
+          nameError.style.color='green'
+          return true;
+      }
+
+
+      function validatePhoneno() {
+    var phoneno=document.getElementById('phoneno').value.trim();  
+
+    if (phoneno.length==0) {
+        phonenoError.innerHTML='Phone no is Required';
+        phonenoError.style.color='red'
+        return false;
+    }
+    else if (phoneno.length!=10) {
+        phonenoError.innerHTML='Write a valid phone no';
+        phonenoError.style.color='red'
+        return false;
+    }
+
+    if (!phoneno.match(/^[0-9]*$/)){
+        phonenoError.innerHTML='Write a valid phoneno';
+        phonenoError.style.color='red'
+        return false;
+    }
+    
+    phonenoError.innerHTML='Phone no is valid';
+    phonenoError.style.color='green'
+    return true;
+}
+
+
+function validatePinCode() {
+    var pincode=document.getElementById('pincode').value.trim();  
+
+    if (pincode.length==0) {
+        pincodeError.innerHTML='Pincode  is Required';
+        pincodeError.style.color='red'
+        return false;
+    }
+    else if (pincode.length!=6) {
+        pincodeError.innerHTML='Write a valid pincode';
+        pincodeError.style.color='red'
+        return false;
+    }
+
+    if (!pincode.match(/^[0-9]*$/)){
+        pincodeError.innerHTML='Write a valid pincode';
+        pincodeError.style.color='red'
+        return false;
+    }
+    
+    pincodeError.innerHTML='Pincode  is valid';
+    pincodeError.style.color='green'
+    return true;
+}
+
+
+      
+      function validateAddressLine() {
+          var addressLine=document.getElementById('addressLine').value.trim();  
+          if (addressLine.length==0) {
+              addressLineError.innerHTML='Address Line is Required';
+              addressLineError.style.color='red'
+              return false;
+          }
+      
+          // if (!addressLine.match(/^[A-Za-z]*$/)){
+          //     addressLineError.innerHTML='Write a Valid addressLine';
+          //     addressLineError.style.color='red'
+          //     return false;
+          // }
+          
+          if (addressLine.length<15) {
+              addressLineError.innerHTML=' More Characters is Required';
+              addressLineError.style.color='red'
+              return false;
+          }
+          addressLineError.innerHTML='Address Line is valid';
+          addressLineError.style.color='green'
+          return true;
+      }
+
+
+
+      function validateLocality() {
+          var locality=document.getElementById('locality').value.trim();  
+      
+          if (locality.length==0) {
+              localityError.innerHTML='Locality is Required';
+              localityError.style.color='red'
+              return false;
+          }
+      
+          // if (!locality.match(/^[A-Za-z]*$/)){
+          //     localityError.innerHTML='Write a Validlocality';
+          //     localityError.style.color='red'
+          //     return false;
+          // }
+          
+          localityError.innerHTML='Locality is valid';
+          localityError.style.color='green'
+          return true;
+      }
+
+
+      function validateCity() {
+          var city=document.getElementById('city').value.trim();  
+      
+          if (city.length==0) {
+              cityError.innerHTML='City/District/Town is Required';
+              cityError.style.color='red'
+              return false;
+          }
+      
+          // if (!city.match(/^[A-Za-z]*$/)){
+          //     cityError.innerHTML='Write a Validcity';
+          //     cityError.style.color='red'
+          //     return false;
+          // }
+          
+          cityError.innerHTML='City/District/Town is valid';
+          cityError.style.color='green'
+          return true;
+      }
+      
+      </script>

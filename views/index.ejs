@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home Page</title>
+  <link rel='stylesheet' href='/stylesheets/category.css' />
+  </head>
+  
+
+<style>
+  /* === BASE HEADING === */ 
+
+ .twelve h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color: #c50000;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color: #c50000;
+    content: '';
+    display: block;
+  position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* body {
+  background: #eee;
+} */
+.heading {
+  position: relative;
+  /* background: #f8f8f8; */
+  width: 90%;
+  max-width: 500px;
+  padding: 2em;
+  margin: 1.5em auto;
+  /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+  background-color: #c50000;
+}
+.pos1{
+    height: 350px;
+    width: 350px;
+    /* background-image: url(https://images.pexels.com/photos/772513/pexels-photo-772513.png?auto=compress&cs=tinysrgb&dpr=1&w=500); */
+    background-size: 350px;
+    background-position: center;
+    transition: .5s;
+}
+
+.cattt.card{
+   margin: 40px;
+    width: 350px;
+    
+    background:linear-gradient(150deg,#469dba,#f1e2b1);
+    display: grid;
+    justify-content: center;
+    height: 350px;
+    /* border: solid; */
+    border-radius: 200px !important;
+    text-align: center;
+    overflow: hidden;
+    transition: .5s;
+}
+.card>img{
+     width: 350px;
+}
+.abv{
+    margin-top: 40%;
+    padding: 30px;
+    font-size: 25px;
+    font-family: nyala;
+    font-weight: bolder;
+    color: #442b41;
+    background: rgba(255,255,255,.5);
+
+}
+.card>h2{
+    text-align: center;
+    font-family: Gabriola;
+    color: #442b41;
+    font-size: 30px;
+}
+.pos1:hover{
+    background-size: 400px;
+}
+.pos2:hover{
+    background-size: 400px;
+}
+.pos3:hover{
+    background-size: 400px;
+}
+.badges{
+  background-color: rgb(255, 0, 0);
+  height: 25px;
+  width: 180px;
+right: 0px;
+  position: absolute;
+  
+}
+
+</style>
+<body>
+  <%- include('partials/navbar')%>
+<%- include('flashes/flash')%>
+
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="<%-banners[0].image.url%>" class="d-block " style="width:100%" height="600px">
+        <div class="carousel-caption d-none d-md-block bg-light ">
+          <h5 class="text-dark"><%-banners[0].name%>  </h5>
+          <p class="text-dark"><%-banners[0].description%></p>
+          <button onclick="bannerURL('<%-banners[0].category%>')" class="btn-sm btn btn-primary">CHECKOUT PRODUCTS</button>
+        </div>
+      </div>
+      <% for(let i=1;i< banners.length;i++){%>
+
+       <div class="carousel-item">
+        <img src="<%-banners[i].image.url%>" class="d-block" style="width:100%" height="600px" >
+        <div class="carousel-caption d-none d-md-block bg-light">
+          
+            <h5 class="text-dark"><%-banners[i].name%></h5>
+            <p class="text-dark"><%-banners[i].description%></p>
+            <button onclick="bannerURL('<%-banners[i].category%>')" class="btn-sm btn btn-primary">CHECKOUT PRODUCTS</button>
+          
+       
+        </div>
+      </div>
+      <%}%>
+
+   
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="twelve heading">
+    <h1>Categories</h1>
+  </div>
+  <section class="m-5 mb-0 bg-light">
+    <div class="container-fluid text-center">
+      <!-- <h4 class="py-4 text-dark"><strong>Categories</strong></h4> -->
+      <div class="row d-flex justify-content-center">
+        <% for(let c of categories){%>
+          
+
+     
+        <div class="col-lg-4 col-md-6 mb-4 ">
+          <a href="/category/<%-c._id%>">
+              <div class="card mx-auto mt-5 cattt">
+               
+                  <div class="pos1" style="background-image:url('<%-c.image.url%>') ;">
+                    
+                    <div class="abv abv1"><%-c.name%>
+                      <%if(c.offer.discount){%>
+                        -<%-c.offer.discount%>%OFF
+                        <%}%></div>
+
+                  
+                  </div>
+              </div>
+            </a>
+            </div>
+           
+            <%}%>
+          </div>
+        </div>
+
+  </section>
+ 
+ 
+ 
+    <div class="twelve heading">
+      <h1>New Arrivals</h1>
+    </div>
+    <div class="container page-wrapper ">
+      <div class="page-inner">
+        <div class="row">
+          
+  <% for(var i=0; i< limit;i++){%>
+
+  
+        <div class="col-12 col-sm-8 col-md-6 col-lg-3 py-3 mb-5">
+          
+          <div class="card">
+            <div class="d-flex justify-content-center">
+              <%if(product[(product.length)-(i+1)].stock==0){%>
+                <div class="badge badges"><h6>Currently Unavailable</h6></div>
+                  <%}%>
+            <img class="card-img" src="<%-product[(product.length)-(i+1)].images[0].url%>" alt="Vans" style="width: 155px; height:200px">
+
+            </div>
+            <div class="card-img-overlay d-flex justify-content-end">
+                <%if(user){%> 
+
+
+
+                <%if(product[(product.length)-(i+1)].inWishlist){%>
+              <a  onclick="confirmation('F','<%-product[(product.length)-(i+1)]._id%>')" class="card-link text-danger like">
+
+                  <i class="fas fa-heart"></i></a>
+                  <%}else{%>
+              <a onclick="confirmation('T','<%-product[(product.length)-(i+1)]._id%>')" class="card-link text-danger like">
+
+                    <i class="fa-regular fa-heart"></i></a>
+                    
+
+                  <%}%>
+                  <%}else{%>
+                    <i class="fa-regular fa-heart"></i>
+
+                    <%}%> 
+              
+            </div>
+            <div class="card-body">
+              <!-- <h4 class="card-title"><%-product[(product.length)-(i+1)].categoryInfo.name%></h4> -->
+              <h6 class="card-subtitle mb-2 text-muted"><span class="p-company fw-bold text-danger"><%-product[(product.length)-(i+1)].brand%></span>
+              </h6>
+              <p class="card-text">
+               
+                <%-product[(product.length)-(i+1)].productname%> </p>
+                <div class="fw-bold">
+                  <%if(product[(product.length)-(i+1)].categoryInfo.offer!=null){%>
+                    <%if(product[(product.length)-(i+1)].discount>product[(product.length)-(i+1)].categoryInfo.offer.discount){%>
+                      <%-product[(product.length)-(i+1)].discount%>%Off
+                      <%}else{%>
+                        <%-product[(product.length)-(i+1)].categoryInfo.offer.discount%>%Off
+                      <%}%> 
+
+                      <%}else{%>
+                        <%-product[(product.length)-(i+1)].discount%>%Off
+                      <%}%>      
+                </div>
+                
+              <!-- <div class="options d-flex flex-fill">
+                 <select class="custom-select mr-1">
+                    <option selected>Color</option>
+                    <option value="1">Green</option>
+                    <option value="2">Blue</option>
+                    <option value="3">Red</option>
+                </select>
+                <select class="custom-select ml-1">
+                    <option selected>Size</option>
+                    <option value="1">41</option>
+                    <option value="2">42</option>
+                    <option value="3">43</option>
+                </select>
+              </div> -->
+              <div class="buy d-flex justify-content-between align-items-center">
+                <div class="price text-success"><h6 class="mt-4">
+                 
+
+                  
+                  &#8377;<%-product[(product.length)-(i+1)].price%>/- 
+                  </h5></div>
+                
+                 <a href="/productview/<%-product[(product.length)-(i+1)]._id%>" class="btn btn-danger mt-3" style="z-index: 20">View Details</a>
+              </div>
+             
+             
+            </div>
+          </div>
+          
+        </div>
+     
+    <%}%>
+
+              </div>
+      </div>
+    </div>
+    <%- include('./partials/footer')%>
+    
+    <script>
+        function confirmation(R,proId){
+                if(R=='T'){
+            sessionStorage.setItem("addToWishlist", "true");
+            addToWishlist(proId)
+                } 
+            if(R=='F'){
+            sessionStorage.setItem("removedFromWishlist", "true");
+            deleteProduct(proId)
+            }
+
+            }
+            function myFunction(msg) {
+            alertify.success(msg);
+          }
+          window.onload = function () {
+            var addToWishlist = sessionStorage.getItem("addToWishlist");
+            var removedFromWishlist = sessionStorage.getItem("removedFromWishlist");
+
+            
+                    
+            if (addToWishlist) {
+              sessionStorage.removeItem("addToWishlist");
+              myFunction('Added to your Wishlist');
+            }
+            if (removedFromWishlist) {
+              sessionStorage.removeItem("removedFromWishlist");
+              myFunction('Removed from your Wishlist');
+            }
+           
+          
+          }
+          function addToWishlist(productId) {
+          $.ajax({
+            url: '/addToWishlist',
+            data: {
+              proId: productId     
+            },
+            method: 'patch',
+            success: (response) => {
+              
+                document.location.reload();
+            }
+          })
+        }
+        function deleteProduct(productId) {
+          $.ajax({
+            url: '/removeFromWishlist',
+            data: {
+              id: productId
+            },
+            method: 'patch',
+            success: (response) => {
+                document.location.reload();       
+            }
+          })
+        }
+        function bannerURL(id){
+          location.href=`/category/${id}`
+        }
+        
+    </script>
+   
+   </body>
+   
+</html>

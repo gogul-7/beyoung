@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  
+
+</head>
+
+<body style="background-color: #eee;">
+  <%- include('../partials/navbar')%>
+    <section class="h-100 h-custom mb-5" >
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12">
+            <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+              <div class="card-body p-0">
+                <div class="row g-0">
+                  <% if (cart.length>0) { %>
+
+                  <div class="col-lg-8">
+                    <div class="p-5">
+                      <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h3 class="fw-bold mb-0 text-black">Shopping Cart</h3>
+                        <h6 class="mb-0 text-muted">
+                          <%-cart.length%> items
+                        </h6>
+                      </div>
+                       
+                    
+
+                      <hr class="my-4">
+                      <% for(var i=0; i< cart.length;i++) {%>
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <a href="/productview/<%-cart[i].product._id%>"><img src="<%-cart[i].product.images[0].url%>" class="img-fluid rounded-3"
+                              alt="Cotton T-shirt"></a>
+                            
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-muted"><%-cart[i].product.categoryname%></h6>
+                             <h6 class="text-danger"><%-cart[i].product.brand%></h6>
+                              
+                            <h6 class="text-black mb-0">
+                              <%-cart[i].product.productname%>
+                            </h6>
+                          </div>
+
+
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <button class="btn btn-link px-2"
+                              onclick="changeQuantity('<%-cart[i]._id%>','<%-cart[i].product._id%>',-1)">
+                              <i class="fas fa-minus"></i>
+                            </button>
+
+                            <span id="<%-cart[i].product._id%>" class="form-control">
+                              <%-cart[i].quantity%>
+                            </span>
+                            <button class="btn btn-link px-2"
+                              onclick="changeQuantity('<%-cart[i]._id%>','<%-cart[i].product._id%>',1)" <%= cart[i].product.stock <= cart[i].quantity ? 'disabled' : ''%>>
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0"><s>&#8377;<%-cart[i].product.price%> </s> &nbsp; &#8377;
+                              <%-cart[i].product.actualprice%>
+                            </h6>
+  
+                          </div>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <a onclick="confirmation('<%-cart[i]._id%>','<%-cart[i].product._id%>')"
+                              class="text-muted"><i class="fas fa-times"></i></a>
+                          </div>
+                         <% if (cart[i].product.stock == cart[i].quantity) { %>
+                            
+                            <p class="text-danger mt-2">
+
+                          Only this much quantity available
+                        </p>
+                          <%}  %>
+                          <% if (cart[i].product.stock==0) { %>
+                            
+                            <p class="text-danger mt-2">
+
+                              Currently Out of Stock
+
+                        </p>
+                        <%} else if ( cart[i].product.stock < cart[i].quantity){ %>
+                          <p class="text-danger mt-2">
+                            Only <%-cart[i].product.stock%> available.To continue change the quantity to <%-cart[i].product.stock%> 
+
+                          </p>
+                          <%}  %>
+                        </div>
+                        <% } %>
+
+
+                          <hr class="my-4">
+
+                          <div class="pt-5">
+                            <h6 class="mb-0"><a href="/" class="text-body"><i
+                                  class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                          </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 bg-grey">
+                    <div class="p-5">
+                      <h3 class="fw-bold mb-5 mt-2 pt-1">Price Details</h3>
+                      <hr class="my-4">
+
+                      <div class="d-flex justify-content-between mb-4">
+                        <h6 class="text-uppercase">Price(<%-cart.length%> items)</h6>
+                        <h6>&#8377;<span id="subtotal">
+                            <%-total.subTotal%>
+                          </span></h6>
+                      </div>
+                      <div class="d-flex justify-content-between mb-4">
+                        <h6 class="text-uppercase">Discount : </h6>
+                        <h6>&#8377;<span id="discount">
+                            <%-total.discount%>
+                          </span></h6>
+                      </div>
+                      <div class="d-flex justify-content-between mb-4">
+                        <h6 class="text-uppercase">Delivery Charges : </h6>
+                        <h6>FREE</h6>
+                      </div>
+                      <!--   
+                    <h5 class="text-uppercase mb-3">Shipping</h5>
+  
+                    <div class="mb-4 pb-2">
+                      <select class="select">
+                        <option value="1">Standard-Delivery- €5.00</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                      </select>
+                    </div> -->
+
+                      <!-- <h5 class="text-uppercase mb-3">Give code</h5>
+  
+                    <div class="mb-5">
+                      <div class="form-outline">
+                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea2">Enter your code</label>
+                      </div>
+                    </div> -->
+
+                      <hr class="my-4">
+
+                      <div class="d-flex justify-content-between mb-5">
+                        <h5 class="text-uppercase">Total price :</h5>
+                        <h5> &#8377;<span id="total">
+                            <%-total.totalAmount%>
+                          </span></h5>
+                      </div>
+                      <p>You will save &#8377;<span id="discount">
+                          <%-total.discount%>
+                        </span> in this order</p>
+
+
+                        <div class="d-flex justify-content-center">
+                          <form action="/login" method="get">
+<input type="text" name="guestCart" value="true" hidden>
+                      <button type="submit" class="btn btn-dark btn-block " data-mdb-ripple-color="dark">GO TO 
+                       CHECKOUT</button>
+                          </form>
+                        </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <%} else { %>
+                  <div class="d-flex justify-content-center my-5 col-lg-12">    
+                    <div class="card text-center" style="width: 18rem;">
+                        <img src="/images/cartlogin.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Your cart is empty!</h5>
+                          <p class="card-text">Login to see the items you added previously
+                          </p>
+                          <a href="/login" class="btn btn-primary">Login</a>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+        function changeQuantity(cartId,productId,count) {
+          let quantity = parseInt(document.getElementById(productId).innerHTML)
+          count = parseInt(count)
+          
+          $.ajax({
+            url: '/guestChange-product-quantity',
+            data: {
+              product: productId,
+              cart: cartId,
+              count: count,
+              quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+              if (response.removeProduct) {
+                alert('Product Removed')
+                location.reload()
+              }
+              else {
+                console.log(response.subtotal)
+                document.getElementById(productId).innerHTML = quantity + count
+                document.getElementById('total').innerHTML = response.total
+                document.getElementById('subtotal').innerHTML = response.subtotal
+                document.getElementById('discount').innerHTML = response.subtotal - response.total
+              location.reload()
+
+              }
+            }
+          })
+        }
+        function deleteProduct(cartId, productId) {
+          $.ajax({
+            url: '/guestRemove-cartItem',
+            data: {
+              cart: cartId,
+              product: productId
+            },
+            method: 'post',
+            success: (response) => {
+              sessionStorage.setItem("removedFromCart", "true");
+                document.location.reload();    
+            }
+          })
+        }
+        function confirmation(cartId, productId) {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Remove'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteProduct(cartId, productId)
+              }
+            })
+          }
+
+          function myFunction(msg) {
+            alertify.success(msg);
+          }
+          window.onload = function () {
+            var removedFromCart = sessionStorage.getItem("removedFromCart");
+                 
+            if (removedFromCart) {
+              sessionStorage.removeItem("removedFromCart");
+              myFunction('Product has been removed from your Cart');
+            }
+          
+          }
+      </script>
+</body>
+<%- include('../partials/footer')%>
