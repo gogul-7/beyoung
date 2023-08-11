@@ -7,17 +7,7 @@
 var app = require("../app");
 var debug = require("debug")("e-commerce-project:server");
 var http = require("http");
-const createError = require("http-errors");
 
-// ...
-
-// Create a new HTTP error
-const notFoundError = createError(404, "Not Found");
-
-// Handle errors in middleware or route handlers
-app.use((req, res, next) => {
-  next(createError(404, "Not Found"));
-});
 /**
  * Get port from environment and store in Express.
  */
